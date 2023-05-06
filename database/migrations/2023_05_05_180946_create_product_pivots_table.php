@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('review_id');
             $table->unsignedBigInteger('transaction_id');
+            $table->unsignedBigInteger('gallery_id');
             $table->timestamps();
         });
     }

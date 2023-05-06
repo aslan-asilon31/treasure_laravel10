@@ -12,6 +12,26 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\Category::create([
+            'name'	=> 'Shoes',
+            'image'	=> '',
+            'retro_model'	=> '',
+            'collaboration'	=> '',
+            'limited_edition'	=> '',
+        ]);
+        \App\Models\Category::create([
+            'name'	=> 'Clothing',
+            'image'	=> '',
+            'retro_model'	=> '',
+            'collaboration'	=> '',
+            'limited_edition'	=> '',
+        ]);
+        \App\Models\Category::create([
+            'name'	=> 'Accessories & Equipment',
+            'image'	=> '',
+            'retro_model'	=> '',
+            'collaboration'	=> '',
+            'limited_edition'	=> '',
+        ]);
     }
 }

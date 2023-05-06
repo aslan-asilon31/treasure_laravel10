@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image');
             $table->string('retro_model');
             $table->string('collaboration');
             $table->string('limited_edition');

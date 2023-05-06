@@ -17,6 +17,7 @@ class Category extends Model
 
     protected $fillable = [
         'name',
+        'image',
         'retro_model',
         'collaboration',
         'limited_edition',
@@ -25,5 +26,10 @@ class Category extends Model
     public function productpivots()
     {
         return $this->hasMany(ProductPivot::class);
+    }
+
+    public function categorydetails()
+    {
+        return $this->hasMany(CategoryDetail::class);
     }
 }

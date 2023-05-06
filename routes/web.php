@@ -9,6 +9,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\CategoryDetailController;
 
 
 /*
@@ -22,20 +24,26 @@ use App\Http\Controllers\TransactionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('visitor.landingpage');
+// });
+Route::get('/', [App\Http\Controllers\VisitorController::class, 'index'])->name('visitor');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::resource('carts', CarttController::class);
+Route::resource('carts', CartController::class);
 Route::resource('categories', CategoryController::class);
+Route::resource('categorydetails', CategoryDetailController::class);
 Route::resource('customers', CustomerController::class);
 Route::resource('galleries', GalleryController::class);
 Route::resource('orders', OrderController::class);
+
 Route::resource('products', ProductController::class);
+
 Route::resource('reviews', ReviewController::class);
 Route::resource('transactions', TransactionController::class);
+
+// Route::resource('visitors', VisitorController::class);

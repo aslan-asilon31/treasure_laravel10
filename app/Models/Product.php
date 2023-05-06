@@ -18,11 +18,12 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'product_description',
+        'image',
         'price',
-        'available_sizes',
-        'color_options',
-        'image_url',
+        'size',
+        'color',
+        'status',
+        'description',
     ];
 
     public function productpivots()
