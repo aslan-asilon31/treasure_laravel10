@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class ProductPivotController extends Controller
 {
-    //
+    public function index()
+    {
+        return view('');
+    }
 }

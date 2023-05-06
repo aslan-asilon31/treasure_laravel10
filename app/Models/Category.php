@@ -8,4 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    protected $table = 'categories';
+
+    protected $keyType = 'string';
+
+    public $primaryKey = 'id';
+
+    protected $fillable = [
+        'name',
+        'retro_model',
+        'collaboration',
+        'limited_edition',
+    ];
+
+    public function productpivots()
+    {
+        return $this->hasMany(ProductPivot::class);
+    }
 }
