@@ -22,6 +22,15 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Select Product</label>
+                            <select class="form-control">
+                                @foreach ($products as $product)
+                                    <option value="{{ $product->id }}" name="{{ $product->id }}">{{ $product->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label class="font-weight-bold">Title</label>
                             <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $gallery->title) }}" placeholder="Insert title">
                         

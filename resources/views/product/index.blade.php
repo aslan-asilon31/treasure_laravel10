@@ -33,7 +33,7 @@
                     {{ $product->name }}
                 </td>
                 <td class="text-center">
-                    <h6>img</h6>
+                    <img src="{{ Storage::url('public/products/').$product->image }}" class="rounded" style="width: 150px">
                 </td>
                 <td class="text-center">
                     {{ $product->price }}

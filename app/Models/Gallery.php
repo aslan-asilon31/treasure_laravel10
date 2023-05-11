@@ -17,6 +17,7 @@ class Gallery extends Model
     public $primaryKey = 'id';
 
     protected $fillable = [
+        'product_id',
         'image',
         'title',
         'description',
@@ -25,5 +26,10 @@ class Gallery extends Model
     public function productpivots()
     {
         return $this->hasMany(ProductPivot::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

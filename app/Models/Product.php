@@ -18,16 +18,22 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'image',
         'price',
-        'size',
-        'color',
-        'status',
+        // 'size',
+        // 'color',
+        // 'status',
         'description',
+        'image',
+        
     ];
 
     public function productpivots()
     {
         return $this->hasMany(ProductPivot::class);
+    }
+
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
     }
 }

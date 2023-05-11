@@ -17,6 +17,7 @@
       <table id="example1" class="table table-bordered table-striped">
         <thead>
         <tr>
+          <th>Product</th>
           <th>Image</th>
           <th>Title</th>
           <th>Description</th>
@@ -26,6 +27,11 @@
         <tbody>
             @foreach ($galleries as $gallery)
             <tr>
+                @foreach ($gallery->product()->get() as $g)
+                    <td class="text-center">
+                        {{ $g->name }}
+                    </td>
+                @endforeach
                 <td class="text-center">
                     <img src="{{ Storage::url('public/galleries/').$gallery->image }}" class="rounded" style="width: 150px">
                 </td>

@@ -33,11 +33,11 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="exampleSelectRounded0">Project ID</label>
+                            <label for="exampleSelectRounded0">Product ID</label>
                             <select class="custom-select rounded-0" id="exampleSelectRounded0">
                               <option style="display:none;">Select Project</option>
-                              @foreach ($projects as $p)
-                              <option name="project_id" value="{{ $p->id }}">{{ $p->title }}</option>
+                              @foreach ($products as $p)
+                              <option name="project_id" value="{{ $p->id }}">{{ $p->name }}-{{ $p->color }}</option>
                               @endforeach
                             </select>
                         </div>

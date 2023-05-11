@@ -7,3 +7,6 @@ https://www.figma.com/file/zEQqvdGW9gDz6LtXIIcHHv/eComm-%231?type=design&node-id
 ===== when cannot push to github 
 after generate new token
 git remote set-url origin https://<token>@github.com/<username>/<repo>
+
+=== add to cart
+https://larainfo.com/blogs/laravel-9-shopping-add-to-cart-tutorial-example

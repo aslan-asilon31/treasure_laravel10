@@ -4,18 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Gallery;
+use App\Models\Product;
+use Storage;
 
 class GalleryController extends Controller
 {
     public function index()
     {
+        $products = Product::all();
         $galleries = Gallery::all();
-        return view('gallery.index', compact('galleries'));
+        return view('gallery.index', compact('galleries','products'));
     }
     
     public function create()
     {
-        return view('gallery.create');
+        $products = Product::all();
+        return view('gallery.create',compact('products'));
     }
 
 
@@ -49,12 +53,14 @@ class GalleryController extends Controller
 
     public function edit(Gallery $gallery)
     {
-        return view('gallery.edit', compact('gallery'));
+        $products = Product::all();
+        return view('gallery.edit', compact('gallery','products'));
     }
 
     public function update(Request $request, Gallery $gallery)
     {
         $this->validate($request, [
+            'product_id'     => 'required',
             'image'     => 'required|image|mimes:png,jpg,jpeg',
             'title'     => 'required',
             'description'   => 'required'
@@ -66,6 +72,7 @@ class GalleryController extends Controller
         if($request->file('image') == "") {
 
             $gallery->update([
+                'product_id'     => $request->product_id,
                 'title'     => $request->title,
                 'description'   => $request->description
             ]);
@@ -80,6 +87,7 @@ class GalleryController extends Controller
             $image->storeAs('public/galleries', $image->hashName());
 
             $gallery->update([
+                'product_id'     => $request->product_id,
                 'image'     => $image->hashName(),
                 'title'     => $request->title,
                 'description'   => $request->description
