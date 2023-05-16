@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+@include('sweetalert::alert')
 <div class="container mt-5 mb-5">
     <div class="row">
         <div class="col-md-12">
@@ -31,7 +32,12 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Image</label>
-                            <input type="file" class="form-control" name="image">
+                            <input type="file" class="form-control" name="image" id="selectImage">
+                        </div>
+
+                        
+                        <div class="form-group rounded mx-auto d-block img-fluid" >
+                            <img id="preview" src="{{ Storage::url('public/products/').$product->image }}" alt="your image" class="rounded" style="width: 150px"/>
                         </div>
 
                         <div class="form-group">
@@ -111,8 +117,14 @@
 
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace( '' );
+    selectImage.onchange = evt => {
+        preview = document.getElementById('preview');
+        preview.style.display = 'block';
+        const [file] = selectImage.files
+        if (file) {
+            preview.src = URL.createObjectURL(file)
+        }
+    }
 </script>
 @stop

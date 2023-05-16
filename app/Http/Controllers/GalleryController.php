@@ -25,18 +25,22 @@ class GalleryController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'image'     => 'required|image|mimes:png,jpg,jpeg',
-            'title'     => 'required',
-            'description'   => 'required'
-        ]);
+        
+        // $this->validate($request, [
+        //     'product_id'   => 'required',
+        //     'image'     => 'required|image|mimes:png,jpg,jpeg',
+        //     'title'     => 'required',
+        //     'description'   => 'required'
+        // ]);
+
 
         //upload image
         $image = $request->file('image');
         $image->storeAs('public/galleries', $image->hashName());
 
+
         $gallery = Gallery::create([
-            'id'     => $request->id,
+            'product_id'     => $request->project_id,
             'image'     => $image->hashName(),
             'title'     => $request->title,
             'description'   => $request->description
@@ -59,12 +63,12 @@ class GalleryController extends Controller
 
     public function update(Request $request, Gallery $gallery)
     {
-        $this->validate($request, [
-            'product_id'     => 'required',
-            'image'     => 'required|image|mimes:png,jpg,jpeg',
-            'title'     => 'required',
-            'description'   => 'required'
-        ]);
+        // $this->validate($request, [
+        //     'product_id'     => 'required',
+        //     'image'     => 'required|image|mimes:png,jpg,jpeg',
+        //     'title'     => 'required',
+        //     'description'   => 'required'
+        // ]);
 
         //get data Gallery by ID
         $gallery = Gallery::findOrFail($gallery->id);
@@ -72,7 +76,7 @@ class GalleryController extends Controller
         if($request->file('image') == "") {
 
             $gallery->update([
-                'product_id'     => $request->product_id,
+                'product_id'     => $request->project_id,
                 'title'     => $request->title,
                 'description'   => $request->description
             ]);
@@ -87,8 +91,8 @@ class GalleryController extends Controller
             $image->storeAs('public/galleries', $image->hashName());
 
             $gallery->update([
-                'product_id'     => $request->product_id,
                 'image'     => $image->hashName(),
+                'product_id'     => $request->project_id,
                 'title'     => $request->title,
                 'description'   => $request->description
             ]);

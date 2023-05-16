@@ -18,12 +18,17 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Image</label>
-                            <input type="file" class="form-control" name="image">
+                            <input type="file" class="form-control " name="image"  id="selectImage">
+                                                    
+                        </div>
+
+                        <div class="form-group rounded mx-auto d-block img-fluid" >
+                            <img id="preview" src="{{ Storage::url('public/galleries/').$gallery->image }}" alt="your image" class="rounded" style="width: 150px"/>
                         </div>
 
                         <div class="form-group">
                             <label>Select Product</label>
-                            <select class="form-control">
+                            <select class="form-control" id="project_id" name="project_id">
                                 @foreach ($products as $product)
                                     <option value="{{ $product->id }}" name="{{ $product->id }}">{{ $product->name }}</option>
                                 @endforeach
@@ -71,8 +76,24 @@
 
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace( '' );
+</script>
+<script>
+    selectImage.onchange = evt => {
+        preview = document.getElementById('preview');
+        preview.style.display = 'block';
+        const [file] = selectImage.files
+        if (file) {
+            preview.src = URL.createObjectURL(file)
+        }
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        $('#project').on('change', function() {
+            var selectedValue = $(this).val();
+            $('.result_project').text(selectedValue).val(selectedValue);
+        });
+    });
 </script>
 @stop

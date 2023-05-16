@@ -425,7 +425,7 @@ h4 {
                     <form action="{{ route('cart.remove') }}" method="POST">
                         @csrf
                         <input type="hidden" value="{{ $item->id }}" name="id">
-                        <button class="px-4 py-2 text-white bg-red-600 shadow rounded-full">x</button>
+                        <button class="" style="background-color:red;color:white;">X</button>
                      </form>
                 </div>
                 <hr>
@@ -438,16 +438,16 @@ h4 {
                     <h6>Subtotal</h6>
                 </div>
                 <div class="col-sm-4 p-0">
-                    <p id="subtotal">RP {{ Cart::getTotal() }}</p>
+                    <p id="subtotal">Rp {{ Cart::getTotal() }}</p>
                 </div>
                 </div>
                 <div class="row m-0">
-                <div class="col-sm-8 p-0 ">
+                {{-- <div class="col-sm-8 p-0 ">
                     <h6>Tax</h6>
                 </div>
                 <div class="col-sm-4 p-0">
                     <p id="tax">Rp 10%</p>
-                </div>
+                </div> --}}
                 </div>
                 <hr>
                 <div class="row mx-0 mb-2">
@@ -458,10 +458,10 @@ h4 {
                     <p id="total">Rp {{ Cart::getTotal() }}</p>
                 </div>
                 </div>
-                <a href="#"><button id="btn-checkout" class="shopnow" style="background-color:indigo;color:white;"><span>Checkout</span></button></a>
+                <a href="#"><button id="btn-checkout" class="shopnow" style="background-color:green;color:white;"><span>Checkout</span> </button></a>
                 <form action="{{ route('cart.clear') }}" method="POST">
                     @csrf
-                    <button class="px-6 py-2 text-sm  ="style="background-color:indigo;color:white;">Clear Carts</button>
+                    <button class="px-6 py-2 text-sm  ="style="background-color:red;color:white;">Clear Carts</button>
                 </form>
             </div>
             </div>

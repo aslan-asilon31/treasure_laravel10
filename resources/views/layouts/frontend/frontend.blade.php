@@ -55,6 +55,8 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     /> --}}
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('css')
   </head>
 
@@ -67,6 +69,8 @@
     <script src="https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.5.5/dist/perfect-scrollbar.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
     <!-- Theme JS -->
     <script src="{{asset('frontend/js/app.js')}}"></script>

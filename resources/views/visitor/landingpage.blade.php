@@ -2,7 +2,18 @@
 
 
 @push('css')
+<style>
+.wishlist-product {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration:none;
+}
 
+.wishlist-button.active i {
+  color: red;
+}
+</style>
 @endpush
 
 @section('content')
@@ -198,6 +209,10 @@
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasExample"
             >
+
+            <button class="btn btn-transparent">
+              <i class="fa fa-heart text-white"></i>
+            </button>
             
               <span></span>
               <span></span>
@@ -486,6 +501,20 @@
 
 @push('scripts')
 <script>
+
+
+  //wishlist product
+$(document).ready(function() {
+  $('.wishlist-product').click(function() {
+    $(this).toggleClass('active');
+    
+    if ($(this).hasClass('active')) {
+      $(this).find('i').removeClass('far').addClass('fas');
+    } else {
+      $(this).find('i').removeClass('fas').addClass('far');
+    }
+  });
+});
 
 </script>
 

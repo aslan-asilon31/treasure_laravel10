@@ -29,18 +29,21 @@
                         </div>
 
                         <div class="form-group rounded mx-auto d-block img-fluid" >
-                            <img id="preview" src="#" alt="your image" style="width:500px; height:250px;" class="mt-3 " style="display:none;"/>
+                            <img id="preview" src="#" alt="your image" class="rounded" style="width: 150px"/>
                         </div>
+
+                        
                         
                         <div class="form-group">
-                            <label for="exampleSelectRounded0">Product ID</label>
-                            <select class="custom-select rounded-0" id="exampleSelectRounded0">
-                              <option style="display:none;">Select Project</option>
+                            <label for="exampleSelectRounded0"> Product ID  </label>
+                            <select class="custom-select rounded-0" id="project_id" name="project_id" >
+                              <option hidden>Select Project</option>
                               @foreach ($products as $p)
-                              <option name="project_id" value="{{ $p->id }}">{{ $p->name }}-{{ $p->color }}</option>
+                              <option  value="{{ $p->id }}">{{ $p->name }}-{{ $p->color }}</option>
                               @endforeach
                             </select>
                         </div>
+
 
                         <div class="form-group">
                             <label class="font-weight-bold">Title</label>
@@ -82,10 +85,17 @@
 @stop
 
 @section('js')
+<script>
+    $(document).ready(function() {
+        $('#project').on('change', function() {
+            var selectedValue = $(this).val();
+            $('.result_project').text(selectedValue).val(selectedValue);
+        });
+    });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace( '' );
 </script>
 <script>
     selectImage.onchange = evt => {
