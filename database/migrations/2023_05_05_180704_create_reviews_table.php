@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('rating');
             $table->text('comments');
+            $table->string('slug');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

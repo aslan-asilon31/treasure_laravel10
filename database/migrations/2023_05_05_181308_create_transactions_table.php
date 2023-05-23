@@ -13,8 +13,18 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 8, 2);
-            $table->string('payment');
+            $table->unsignedBigInteger('prod_transactions_id')->nullable();
+            $table->string('barcode');
+            $table->string('invoice_code');
+            $table->string('cust_name');
+            $table->string('cust_email');
+            $table->string('cust_phone');
+            $table->text('cust_address');
+            $table->string('cust_type');
+            $table->integer('total_price');
+            $table->string('payment_method');
+            $table->string('slug');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

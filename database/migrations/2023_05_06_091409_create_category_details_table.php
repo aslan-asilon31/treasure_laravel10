@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('name');
             $table->string('description');
+            $table->string('slug');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('wishlist');
-            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('image');
+            $table->string('wishlist')->nullable();
+            $table->string('email');
             $table->string('shipping_address');
-            $table->string('billing_address');
-            $table->string('billing_card_number');
-            $table->string('billing_card_exp_month');
-            $table->string('billing_card_exp_year');
-            $table->string('billing_card_cvv');
+            $table->string('member_type');
+            $table->string('slug');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('members');
     }
 };

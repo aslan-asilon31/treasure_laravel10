@@ -17,8 +17,17 @@ class Transaction extends Model
     public $primaryKey = 'id';
 
     protected $fillable = [
-        'amount',
-        'payment',
+        'prod_transactions_id',
+        'barcode',
+        'invoice_code',
+        'cust_name',
+        'cust_email',
+        'cust_phone',
+        'cust_address',
+        'cust_type',
+        'total_price',
+        'payment_method',
+        'slug',
     ];
 
     public function productpivots()

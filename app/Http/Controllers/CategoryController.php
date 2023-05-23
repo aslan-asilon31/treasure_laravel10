@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Storage;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -20,15 +21,9 @@ class CategoryController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $this->validate($request, [
-            'name'     => 'required',
-            'image'     => 'required|image|mimes:png,jpg,jpeg',
-            'retro_model'   => 'required',
-            'collaboration'   => 'required',
-            'limited_edition'   => 'required'
-        ]);
+        $validatedData = $request->validated();
 
         //upload image
         $image = $request->file('image');
@@ -41,6 +36,7 @@ class CategoryController extends Controller
             'retro_model'   => $request->retro_model,
             'collaboration'   => $request->collaboration,
             'limited_edition'   => $request->limited_edition,
+            'slug'   => $request->slug,
         ]);
 
         if($category){
@@ -59,13 +55,9 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        $this->validate($request, [
-            'name'     => 'required',
-            'image'     => 'required|image|mimes:png,jpg,jpeg',
-            'retro_model'   => 'required',
-            'collaboration'   => 'required',
-            'limited_edition'   => 'required'
-        ]);
+        // dd($CategoryRequest);
+        // $validatedData = $request->validated();
+
 
         //get data Category by ID
         $category = Category::findOrFail($category->id);
@@ -77,6 +69,7 @@ class CategoryController extends Controller
                 'retro_model'   => $request->retro_model,
                 'collaboration'   => $request->collaboration,
                 'limited_edition'   => $request->limited_edition,
+                'slug'   => $request->slug,
             ]);
 
         } else {
@@ -94,6 +87,7 @@ class CategoryController extends Controller
                 'retro_model'   => $request->retro_model,
                 'collaboration'   => $request->collaboration,
                 'limited_edition'   => $request->limited_edition,
+                'slug'   => $request->slug,
             ]);
 
         }

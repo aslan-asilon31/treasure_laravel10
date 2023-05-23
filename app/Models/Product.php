@@ -32,8 +32,8 @@ class Product extends Model
         return $this->hasMany(ProductPivot::class);
     }
 
-    public function galleries()
+    public function productimages()
     {
-        return $this->hasMany(Gallery::class);
+        return $this->hasMany(ProductImage::class);
     }
 }

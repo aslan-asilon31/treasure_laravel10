@@ -33,6 +33,10 @@
                             <input type="file" class="form-control" name="image">
                         </div>
 
+                        <div class="form-group rounded mx-auto d-block img-fluid" >
+                            <img id="preview" src="{{ Storage::url('public/categories/').$category->image }}" alt="your image" class="rounded" style="width: 150px"/>
+                        </div>
+
                         <div class="form-group">
                             <label class="font-weight-bold">Retro model</label>
                             <input type="text" class="form-control @error('retro_model') is-invalid @enderror" name="retro_model" value="{{ old('retro_model', $category->retro_model) }}" placeholder="Insert retro model">
@@ -69,6 +73,18 @@
                             @enderror
                         </div>
 
+                        <div class="form-group">
+                            <label class="font-weight-bold">Slug </label>
+                            <input type="text" class="form-control @error('slug') is-invalid @enderror" name="slug" value="{{ old('slug', $category->slug) }}" placeholder="Insert slug ">
+                        
+                            <!-- error message untuk title -->
+                            @error('slug')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
                         <button type="submit" class="btn btn-md btn-primary">UPDATE</button>
                         <button type="reset" class="btn btn-md btn-warning">RESET</button>
 
@@ -89,5 +105,15 @@
 <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace( '' );
+</script>
+<script>
+    selectImage.onchange = evt => {
+        preview = document.getElementById('preview');
+        preview.style.display = 'block';
+        const [file] = selectImage.files
+        if (file) {
+            preview.src = URL.createObjectURL(file)
+        }
+    }
 </script>
 @stop

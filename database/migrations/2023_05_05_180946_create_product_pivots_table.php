@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('product_pivots', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cart_id');
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('customer_id');
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('review_id');
-            $table->unsignedBigInteger('transaction_id');
-            $table->unsignedBigInteger('gallery_id');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->unsignedBigInteger('order_id')->nullable();
+            $table->unsignedBigInteger('member_id')->nullable();
+            $table->unsignedBigInteger('review_id')->nullable();
+            $table->unsignedBigInteger('transaction_id')->nullable();
             $table->timestamps();
         });
     }

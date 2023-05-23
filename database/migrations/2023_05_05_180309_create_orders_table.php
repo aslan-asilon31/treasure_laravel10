@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamp('order_date')->useCurrent();
             $table->string('shipping_address');
             $table->string('order_status');
+            $table->string('slug');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

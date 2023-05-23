@@ -9,11 +9,25 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Category List</h3>
-      <a href="{{ route('categories.create') }}" class="btn btn-md btn-success mb-3">Add Category</a>
-    </div>
-    <!-- /.card-header -->
-    <div class="card-body">
+        <a href="{{ route('categories.create') }}" class="btn btn-md btn-success mb-3">  <i class="fa fa-plus"></i> </a>
+        <a href="" class="btn btn-md btn-danger mb-3">  <i class="fa fa-file-pdf"></i> </a>
+        <a href="" class="btn btn-md btn-warning mb-3" style="color:white;">  <i class="fa fa-file-excel"></i> </a>
+        <a href="" class="btn btn-md btn-info mb-3">  <i class="fa fa-file-csv"></i> </a>
+        <a href="" type="button" class="btn btn-md   mb-3" data-toggle="modal" data-target="#myModal2" style="background-color: indigo;color:white;">  <i class="fa fa-upload"></i> </a>
+
+      <div class="card-tools">
+        <div class="input-group input-group-sm" style="width: 150px;">
+          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-default">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+      </div>      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+          <div style="overflow-x:auto;white-space: nowrap;">
       <table id="example1" class="table table-bordered table-striped">
         <thead>
         <tr>

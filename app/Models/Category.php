@@ -21,6 +21,7 @@ class Category extends Model
         'retro_model',
         'collaboration',
         'limited_edition',
+        'slug',
     ];
 
     public function productpivots()

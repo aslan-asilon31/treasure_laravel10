@@ -17,7 +17,7 @@
       <table id="example1" class="table table-bordered table-striped">
         <thead>
         <tr>
-          <th>Product</th>
+          <th>Product ID</th>
           <th>Image</th>
           <th>Title</th>
           <th>Description</th>

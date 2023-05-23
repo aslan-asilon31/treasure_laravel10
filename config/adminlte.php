@@ -318,6 +318,12 @@ return [
 
         ],
         [
+            'text'        => 'Users',
+            'url'         => 'users',
+            'icon'        => 'fas fa-fw fa-user',
+
+        ],
+        [
             'text'        => 'Cart',
             'url'         => 'carts',
             'icon'        => 'far fa-fw fa-file',
@@ -336,14 +342,20 @@ return [
 
         ],
         [
-            'text'        => 'Customer',
-            'url'         => 'customers',
+            'text'        => 'Member',
+            'url'         => 'members',
             'icon'        => 'fas fa-fw fa-users',
 
         ],
         [
             'text'        => 'Gallery',
             'url'         => 'galleries',
+            'icon'        => 'far fa-fw fa-images',
+
+        ],
+        [
+            'text'        => 'Product Image',
+            'url'         => 'productimages',
             'icon'        => 'far fa-fw fa-images',
 
         ],
@@ -368,6 +380,30 @@ return [
         [
             'text'        => 'Transaction',
             'url'         => 'transactions',
+            'icon'        => 'fas fa-fw fa-money-bill',
+
+        ],
+        [
+            'text'        => 'Transaction Product',
+            'url'         => 'transactionproducts',
+            'icon'        => 'fas fa-fw fa-money-bill',
+
+        ],
+        [
+            'text'        => 'Multiple Price',
+            'url'         => 'multipleprices',
+            'icon'        => 'fas fa-fw fa-money-bill',
+
+        ],
+        [
+            'text'        => 'Payment',
+            'url'         => 'payments',
+            'icon'        => 'fas fa-fw fa-money-bill',
+
+        ],
+        [
+            'text'        => 'Report',
+            'url'         => 'reports',
             'icon'        => 'fas fa-fw fa-money-bill',
 
         ],
