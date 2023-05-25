@@ -18,6 +18,8 @@
         "mpdf/mpdf": "^8.1",
         "rap2hpoutre/fast-excel": "^5.2",
         "realrashid/sweet-alert": "^7.0",
+        "spatie/laravel-activitylog": "^4.7",
+        "spatie/laravel-backup": "^8.1",
         "tecnick.com/tcpdf": "^6.6"
     },
     "require-dev": {

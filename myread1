@@ -1,0 +1,44 @@
+======= implemented task schedule
+Some common use cases for scheduled tasks:
+
+Daily/Weekly/Monthly summary reports
+Garbage collection
+Import / Export processes
+Notifying customers of upcoming expirations (account, credit cards, etc)
+
+
+========= for visitor and member activity log
+https://www.itsolutionstuff.com/post/custom-user-log-activity-in-laravel-5-app-exampleexample.html
+
+
+
+
+
+============== Member Type
+Member Biasa/regular member:
+Diskon produk tertentu (misalnya, 10% off pada kategori tertentu).
+Diskon ulang tahun (misalnya, 20% off saat ulang tahun member).
+
+Member Silver:
+Diskon produk secara keseluruhan (misalnya, 15% off untuk semua produk).
+Diskon produk eksklusif (misalnya, 20% off pada produk-produk terpilih).
+
+Member Gold:
+Diskon produk lebih besar (misalnya, 20% off untuk semua produk).
+Diskon produk eksklusif (misalnya, 25% off pada produk-produk terpilih).
+Pengiriman gratis untuk semua pesanan.
+
+Member Platinum:
+Diskon produk yang signifikan (misalnya, 30% off untuk semua produk).
+Diskon produk eksklusif (misalnya, 35% off pada produk-produk terpilih).
+Pengiriman gratis untuk semua pesanan.
+Layanan pelanggan prioritas.
+Akses ke penawaran khusus dan pre-sale.
+
+Member VIP:
+Diskon produk terbesar (misalnya, 40% off untuk semua produk).
+Diskon produk eksklusif (misalnya, 50% off pada produk-produk terpilih).
+Pengiriman gratis untuk semua pesanan.
+Layanan pelanggan prioritas.
+Akses ke penawaran khusus dan pre-sale.
+Hadiah atau bonus tambahan dengan pembelian tertentu.

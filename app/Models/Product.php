@@ -4,13 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use LogsActivity;
     use HasFactory;
-
+    use SoftDeletes;
     
     protected $table = 'products';
+    protected static $logOnlyDirty = true;
 
     protected $keyType = 'string';
 
@@ -19,7 +24,6 @@ class Product extends Model
     protected $fillable = [
         'name',
         'image',
-        'price',
         'size',
         'color',
         'status',
@@ -36,4 +40,24 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+
+
+    // Log Activity
+    protected static $logFillable = true;
+
+    // Log Activity 
+    // public function getDescriptionForEvent(string $eventName): string
+    // {
+    //     return $this->name . " {$eventName} By: " . Auth::user()->name;
+    // }
+    public function getActivitylogOptions(): LogOptions
+    {
+                // return $this->name . " {$eventName} By: " . Auth::user()->name;
+            return LogOptions::defaults();
+    }
+
+    // public function tapActivity(Activity $activity, string $eventName)
+    // {
+    //     $activity->type = "product";
+    // }
 }

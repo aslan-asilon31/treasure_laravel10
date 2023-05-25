@@ -8,16 +8,34 @@
 
 @section('content')
 @include('sweetalert::alert')
+
+
 <div class="card">
+    @include('/product/import_form')
+    @include('/product/search_form')
+    
     <div class="card-header">
-      <a href="{{ route('products.create') }}" class="btn btn-md btn-success mb-3">  <i class="fa fa-plus"></i> Add product</a>
+      <a href="{{ route('products.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+      <a href="" class="btn btn-warning" style="color:white;"><i class="fa fa-file-excel"></i></a>
+      <a href="" class="btn btn-danger"><i class="fa fa-file-pdf"></i></a>
+      <a href="" class="btn btn-info"><i class="fa fa-file-csv"></i></a>
+      <a href="" class="btn " style="background-color: indigo;color:white;"><i class="fa fa-history"></i></a>
+      <button class="btn" style="background-color: magenta;color:white;" id="modal_view_right" data-toggle="modal" data-target="#information_modal"><i class="fa fa-upload"></i></button>
+      <a href="" class="btn " style="background-color: rgb(130, 0, 0);color:white;"><i class="fa fa-trash"></i> Delete Checked</a>
+
+
+
     </div>
     <!-- /.card-header -->
+
+
+
     <div class="card-body">
         <div style="overflow-x:auto;">
             <table id="" class="table table-bordered" >
               <thead>
               <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Image</th>
                 <th>Price</th>
@@ -32,24 +50,39 @@
                   @forelse ($products as $product)
                   <tr>
                       <td class="text-center">
+                        <input type="checkbox" name="" id="">
+                      </td>
+                      <td class="text-center">
                           {{ $product->name }}
                       </td>
                       <td class="text-center">
-                          <img src="{{ Storage::url('public/products/').$product->image }}" class="rounded" style="width: 150px">
+                          <img src="{{ Storage::url('public/products/').$product->image }}" class="rounded" style="width: 70px">
                       </td>
-                      <td class="text-center">
-                          Rp {{ number_format($product->price) }}
+                      <td class="text-center" style="background-color: rgb(129, 243, 129); color:black;">
+                        <span style="background-color: white;width:10px; color:black;height:10px;"> Regular </span> : Rp 200<br> 
+                        <span style="background-color: #C0C0C0;width:10px; color:black;height:10px;"> Silver </span> : Rp 175<br>
+                        <span style="background-color: #ffd700;width:10px; color:black;height:10px;"> Gold </span> : Rp 160<br>
+                        <span style="background-color: #E5E4E2;width:10px; color:black;height:10px;"> PLatinum </span> : Rp 155<br>
+                        <span style="background-color: indigo;width:10px; color:white;height:10px;"> VIP </span> : Rp 150<br>
+                          {{-- Rp {{ number_format($product->price) }} --}}
                       </td>
-                      <td class="text-center">
+                      <td class="text-center" >
                           {{ $product->size }}
                       </td>
                       <td class="text-center">
                           {{ $product->color }}
                       </td>
                       <td class="text-center">
-                          {{ $product->status }}
+                        @if($product->status =='waiting')
+                            <span class="badge badge-secondary">waiting for payment</span>         
+                        @elseif($product->status == 'success')
+                            <span class="badge badge-success">payment received</span>         
+                        @endif
                       </td>
-                      <td class="text-center" style="">
+                      <td class="text-center" 
+                          style="display: -webkit-box;max-width: 200px;max-height:300px;
+                          -webkit-line-clamp: 4;-webkit-box-orient: vertical;
+                          overflow: scroll;">
                           {{ $product->description }}
                       </td>
                       <td class="text-center">
@@ -58,7 +91,7 @@
                               <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                               @csrf
                               @method('DELETE')
-                              <button class="btn btn-danger" onclick="deleteItem({{ $product->id }})"><i class="fa fa-trash"></i> </button>
+                              <button class="btn btn-sm btn-danger" onclick="deleteItem({{ $product->id }})"><i class="fa fa-trash"></i> </button>
                           {{-- </form> --}}
                       </td>
                   </tr>
@@ -77,6 +110,184 @@
 @stop
 
 @section('css')
+<style>
+    /*left right modal*/
+.modal.left_modal, .modal.right_modal{
+  position: fixed;
+  z-index: 99999;
+}
+.modal.left_modal .modal-dialog,
+.modal.right_modal .modal-dialog {
+  position: fixed;
+  margin: auto;
+  width: 32%;
+  height: 100%;
+  -webkit-transform: translate3d(0%, 0, 0);
+      -ms-transform: translate3d(0%, 0, 0);
+       -o-transform: translate3d(0%, 0, 0);
+          transform: translate3d(0%, 0, 0);
+}
+
+.modal-dialog {
+    /* max-width: 100%; */
+    margin: 1.75rem auto;
+}
+@media (min-width: 576px)
+{
+.left_modal .modal-dialog {
+    max-width: 100%;
+}
+
+.right_modal .modal-dialog {
+    max-width: 100%;
+}
+}
+.modal.left_modal .modal-content,
+.modal.right_modal .modal-content {
+  /*overflow-y: auto;
+    overflow-x: hidden;*/
+    height: 100vh !important;
+}
+
+.modal.left_modal .modal-body,
+.modal.right_modal .modal-body {
+  padding: 15px 15px 30px;
+}
+
+/*.modal.left_modal  {
+    pointer-events: none;
+    background: transparent;
+}*/
+
+.modal-backdrop {
+    display: none;
+}
+
+/*Left*/
+.modal.left_modal.fade .modal-dialog{
+  left: -50%;
+  -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+  transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left_modal.fade.show .modal-dialog{
+  left: 0;
+  box-shadow: 0px 0px 19px rgba(0,0,0,.5);
+}
+
+/*Right*/
+.modal.right_modal.fade .modal-dialog {
+  right: -50%;
+  -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+     -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+       -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+          transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+
+
+.modal.right_modal.fade.show .modal-dialog {
+  right: 0;
+  box-shadow: 0px 0px 19px rgba(0,0,0,.5);
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+
+
+.modal-header.left_modal, .modal-header.right_modal {
+
+  padding: 10px 15px;
+  border-bottom-color: #EEEEEE;
+  background-color: #FAFAFA;
+}
+
+.modal_outer .modal-body {
+    /*height:90%;*/
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 91vh;
+}
+</style>
+
+<style>
+
+
+    /* right modal*/
+ .modal.right_modal{
+  position: fixed;
+  z-index: 99999;
+}
+.modal.right_modal .modal-dialog {
+  position: fixed;
+  margin: auto;
+  width: 22%;
+  height: 100%;
+  -webkit-transform: translate3d(0%, 0, 0);
+      -ms-transform: translate3d(0%, 0, 0);
+       -o-transform: translate3d(0%, 0, 0);
+          transform: translate3d(0%, 0, 0);
+}
+
+.modal-dialog {
+    /* max-width: 100%; */
+    margin: 1.75rem auto;
+}
+@media (min-width: 576px)
+{
+
+
+.right_modal .modal-dialog {
+    max-width: 100%;
+}
+}
+.modal.right_modal .modal-content {
+  /*overflow-y: auto;
+    overflow-x: hidden;*/
+    height: 100vh !important;
+}
+
+.modal.right_modal .modal-body {
+  padding: 15px 15px 30px;
+}
+
+
+.modal-backdrop {
+    display: none;
+}
+
+.modal.right_modal.fade.show .modal-dialog {
+  right: 0;
+  box-shadow: 0px 0px 19px rgba(0,0,0,.5);
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+
+ .modal-header.right_modal {
+
+  padding: 10px 15px;
+  border-bottom-color: #EEEEEE;
+  background-color: #FAFAFA;
+}
+
+.modal_outer .modal-body {
+    /*height:90%;*/
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 91vh;
+}
+</style>
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 

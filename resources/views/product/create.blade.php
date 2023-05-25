@@ -43,11 +43,9 @@
                         <div class="form-group rounded mx-auto d-block img-fluid" >
                             <img id="preview" src="#" alt="your image" class="rounded" style="width: 150px"/>
                         </div>
-                        
 
 
-
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label class="font-weight-bold">Price</label>
                             <input type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" placeholder="Insert price">
                         
@@ -57,7 +55,7 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label class="font-weight-bold">Size</label>

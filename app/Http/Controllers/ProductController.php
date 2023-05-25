@@ -53,7 +53,7 @@ class ProductController extends Controller
             'id'     => $request->id,
             'name'     => $request->name,
             'image'     => $image->hashName(),
-            'price'   => $request->price,
+            // 'price'   => $request->price,
             'size'   => $request->size,
             'color'   => $request->color,
             'status'   => $request->status,
@@ -106,7 +106,7 @@ class ProductController extends Controller
             $product->update([
                 'id'     => $request->id,
                 'name'     => $request->name,
-                'price'   => $request->price,
+                // 'price'   => $request->price,
                 'size'   => $request->size,
                 'color'   => $request->color,
                 'status'   => $request->status,
