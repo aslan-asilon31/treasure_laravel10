@@ -16,6 +16,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MultiplePriceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ActivityLogController;
 
 
 /*

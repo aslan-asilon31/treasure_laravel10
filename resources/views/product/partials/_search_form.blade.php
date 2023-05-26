@@ -48,7 +48,7 @@
                         <input type="text" name="recipient" id="recipient" class="form-control mb-2" />
 
                         <label >Limit</label><br/>
-                        <select name="limit" class="form-control" id="limit" required>
+                        {{-- <select name="" class="form-control" id="" required>
                             <option value="">Select Limit</option>
                             <option value="10">10</option>
                             <option value="50">50</option>
@@ -60,7 +60,7 @@
                             <option value="5000">5000</option>
                             <option value="10000">10,000</option>
                             <option value="20000">20,000</option>
-                        </select>
+                        </select> --}}
 
                         <label for="no_hp">Date</label>
                         <input type="tel" name="tanggal" id="tanggal" class="form-control mb-2" />

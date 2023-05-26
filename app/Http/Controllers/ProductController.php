@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Gallery;
+use App\Models\User;
+use App\Models\ActivityLog;
 use Storage;
 use Alert;
 use App\Http\Requests\ProductRequest;
@@ -15,10 +17,12 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
+        $users = User::all();
+        $productActivities = ActivityLog::all();
         $title = 'Delete User!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        return view('product.index', compact('products'));
+        return view('product.index', compact('products','users','productActivities'));
     }
 
     public function productList()
@@ -41,9 +45,9 @@ class ProductController extends Controller
         return view('visitor.productdetail', compact('product'));
     }
 
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
-        $validatedData = $request->validated();
+        // $validatedData = $request->validated();
 
         //upload image
         $image = $request->file('image');
@@ -150,7 +154,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
     $product = Product::findOrFail($id);
-    Storage::disk('local')->delete('public/products/'.$product->image);
+    // Storage::disk('local')->delete('public/products/'.$product->image);
     $product->delete();
 
     }

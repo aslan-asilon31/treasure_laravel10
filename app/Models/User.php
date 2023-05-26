@@ -33,12 +33,22 @@ class User extends Authenticatable
         'desc',
         'slug',
     ];
+    
+    public function productpivots()
+    {
+        return $this->hasMany(ProductPivot::class);
+    }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    public function activitylogs()
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
+
+    // public function activitylog()
+    // {
+    //     return $this->belongsTo(ActivityLog::class);
+    // }
+
     protected $hidden = [
         'password',
         'remember_token',

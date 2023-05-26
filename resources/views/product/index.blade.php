@@ -10,16 +10,19 @@
 @include('sweetalert::alert')
 
 
+
 <div class="card">
-    @include('/product/import_form')
-    @include('/product/search_form')
+
+    @include('/product/partials/_import_form')
+    @include('/product/partials/_search_form')
+    @include('/product/partials/_activity_log')
     
     <div class="card-header">
       <a href="{{ route('products.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
       <a href="" class="btn btn-warning" style="color:white;"><i class="fa fa-file-excel"></i></a>
       <a href="" class="btn btn-danger"><i class="fa fa-file-pdf"></i></a>
       <a href="" class="btn btn-info"><i class="fa fa-file-csv"></i></a>
-      <a href="" class="btn " style="background-color: indigo;color:white;"><i class="fa fa-history"></i></a>
+      <button type="button" style="background-color: indigo;color:white;" class="btn " data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-history"></i></button>
       <button class="btn" style="background-color: magenta;color:white;" id="modal_view_right" data-toggle="modal" data-target="#information_modal"><i class="fa fa-upload"></i></button>
       <a href="" class="btn " style="background-color: rgb(130, 0, 0);color:white;"><i class="fa fa-trash"></i> Delete Checked</a>
 
@@ -91,7 +94,7 @@
                               <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                               @csrf
                               @method('DELETE')
-                              <button class="btn btn-sm btn-danger" onclick="deleteItem({{ $product->id }})"><i class="fa fa-trash"></i> </button>
+                              <button class="btn btn-sm btn-danger" onclick="deleteProduct({{ $product->id }})"><i class="fa fa-trash"></i> </button>
                           {{-- </form> --}}
                       </td>
                   </tr>
@@ -110,6 +113,50 @@
 @stop
 
 @section('css')
+<style>
+    /* modal activity log */
+    .activity-feed {
+  padding: 15px;
+  list-style: none;
+
+  .feed-item {
+    position: relative;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    border-left: 2px solid #e4e8eb;
+
+    &:last-child {
+      border-color: transparent;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: -6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid @brand-secondary;
+    }
+
+    .date {
+      display: block;
+      position: relative;
+      top: -5px;
+      color: #8c96a3;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+    .text {
+      position: relative;
+      top: -3px;
+    }
+  }
+}
+</style>
 <style>
     /*left right modal*/
 .modal.left_modal, .modal.right_modal{
@@ -298,6 +345,7 @@
 <script>
 
     function deleteProduct(productID) {
+        // console.log(productID)
         Swal.fire({
             title: 'Are you sure want to delete this product ?',
             icon: 'warning',
