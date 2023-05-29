@@ -107,7 +107,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'AdminLTE Preloader Image',
@@ -336,27 +336,9 @@ return [
 
         ],
         [
-            'text'        => 'Category Detail',
-            'url'         => 'categorydetails',
-            'icon'        => 'fas fa-fw fa-boxes',
-
-        ],
-        [
             'text'        => 'Member',
             'url'         => 'members',
             'icon'        => 'fas fa-fw fa-users',
-
-        ],
-        [
-            'text'        => 'Gallery',
-            'url'         => 'galleries',
-            'icon'        => 'far fa-fw fa-images',
-
-        ],
-        [
-            'text'        => 'Product Image',
-            'url'         => 'productimages',
-            'icon'        => 'far fa-fw fa-images',
 
         ],
         [
@@ -369,12 +351,6 @@ return [
             'text'        => 'Product',
             'url'         => 'products',
             'icon'        => 'far fa-fw fa-file',
-
-        ],
-        [
-            'text'        => 'Review',
-            'url'         => 'reviews',
-            'icon'        => 'far fa-fw fa-eye',
 
         ],
         [

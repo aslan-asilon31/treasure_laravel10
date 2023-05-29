@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductDetail;
 use App\Models\Category;
 use App\Models\Gallery;
 use App\Models\User;
@@ -11,18 +12,25 @@ use App\Models\ActivityLog;
 use Storage;
 use Alert;
 use App\Http\Requests\ProductRequest;
+use DB;
 
 class ProductController extends Controller
 {
     public function index()
     {
+        $productdetails = ProductDetail::all();
         $products = Product::all();
         $users = User::all();
         $productActivities = ActivityLog::all();
         $title = 'Delete User!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        return view('product.index', compact('products','users','productActivities'));
+        return view('product.index', compact(
+            'products',
+            'users',
+            'productActivities',
+            'productdetails'
+        ));
     }
 
     public function productList()
@@ -38,11 +46,16 @@ class ProductController extends Controller
         return view('product.create');
     }
 
-    public function show(Product $product)
+    public function show($id)
     {
-        // $products = $product->galleries()->get();
-        // dd($products);
-        return view('visitor.productdetail', compact('product'));
+        $productdetails = ProductDetail::all();
+        $products = Product::find($id);
+
+        if (!$products) {
+            return redirect()->back()->with('error', 'Product not found.');
+        }
+
+        return view('productdetail.detail', compact('products','productdetails'));
     }
 
     public function store(Request $request)
@@ -79,7 +92,7 @@ class ProductController extends Controller
 
     // public function show(Product $product)
     // {
-    //     return view('product.index');
+    //     return view('product.detail');
     // }
 
     public function edit(Product $product)
@@ -110,9 +123,9 @@ class ProductController extends Controller
             $product->update([
                 'id'     => $request->id,
                 'name'     => $request->name,
-                // 'price'   => $request->price,
-                'size'   => $request->size,
-                'color'   => $request->color,
+                'price'   => $request->price,
+                'stock'   => $request->stock,
+                'discount'   => $request->discount,
                 'status'   => $request->status,
                 'description'   => $request->description,
             ]);
@@ -151,12 +164,39 @@ class ProductController extends Controller
     }
 
 
-    public function destroy($id)
-    {
-    $product = Product::findOrFail($id);
-    // Storage::disk('local')->delete('public/products/'.$product->image);
-    $product->delete();
+    // public function destroy($id)
+    // {
+    //     $product = Product::findOrFail($id);
+    //     Storage::disk('local')->delete('public/products/'.$product->image);
+    //     $product->delete();
+    //         return redirect()->route('products.index');
 
+    // }
+        
+        public function deleteAll(Request $request)
+    {
+        $ids = $request->ids;
+        $productimage = $request->image;
+
+        if($productimage == 'product-blank.png' ){
+            DB::table("products")->whereIn('id',explode(",",$ids))->delete();
+            return response()->json(['success'=>"Products Deleted successfully."]);
+        }else{
+            Storage::disk('local')->delete('public/products/'.$productimage);
+            DB::table("products")->whereIn('id',explode(",",$ids))->delete();
+            return response()->json(['success'=>"Products Deleted successfully."]);
+        }
+
+
+    }
+
+
+            
+    public function deleteAllDetail(Request $request)
+    {
+        $ids = $request->ids;
+        DB::table("product_details")->whereIn('id',explode(",",$ids))->delete();
+        return response()->json(['success'=>"Product Details Deleted successfully."]);
     }
 
 

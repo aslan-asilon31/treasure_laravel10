@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\ProductImageController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
+use App\Http\Controllers\ProductDetailController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TransactionController;
@@ -51,7 +52,6 @@ Route::resource('carts', CartController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('categorydetails', CategoryDetailController::class);
 Route::resource('galleries', GalleryController::class);
-Route::resource('productimages', ProductImageController::class);
 Route::resource('orders', OrderController::class);
 Route::resource('reviews', ReviewController::class);
 Route::resource('transactions', TransactionController::class);
@@ -64,7 +64,15 @@ Route::resource('members', MemberController::class);
 // Route::resource('visitors', VisitorController::class);
 
 Route::resource('products', ProductController::class);
+Route::delete('myproductsDeleteAll', [ProductController::class, 'deleteAll']);
 
+Route::resource('productimages', ProductImageController::class);
+Route::delete('myproductimagesDeleteAll', [ProductImageController::class, 'deleteAllImage']);
+Route::get('/productColor', [ProductImageController::class, 'productColor'])->name('productColor');
+
+
+Route::resource('productdetails', ProductDetailController::class);
+Route::delete('myproductdetailsDeleteAll', [ProductDetailController::class, 'deleteAllDetail']);
 
 Route::get('product', [ProductController::class, 'productList'])->name('products.listt');
 Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');

@@ -53,11 +53,11 @@
                         </div> --}}
 
                         <div class="form-group">
-                            <label class="font-weight-bold">Size</label>
-                            <input type="number" class="form-control @error('size') is-invalid @enderror" name="size" value="{{ old('size', $product->size) }}" placeholder="Insert size">
+                            <label class="font-weight-bold">Price</label>
+                            <input type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price', $product->price) }}" placeholder="Insert price">
                         
                             <!-- error message untuk title -->
-                            @error('size')
+                            @error('price')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>
@@ -65,11 +65,23 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="font-weight-bold">Color</label>
-                            <input type="integer" class="form-control @error('color') is-invalid @enderror" name="color" value="{{ old('color', $product->color) }}" placeholder="Insert color">
+                            <label class="font-weight-bold">Stock</label>
+                            <input type="integer" class="form-control @error('stock') is-invalid @enderror" name="stock" value="{{ old('stock', $product->stock) }}" placeholder="Insert stock">
                         
                             <!-- error message untuk title -->
-                            @error('color')
+                            @error('stock')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label class="font-weight-bold">Discount</label>
+                            <input type="integer" class="form-control @error('discount') is-invalid @enderror" name="discount" value="{{ old('discount', $product->discount) }}" placeholder="Insert discount">
+                        
+                            <!-- error message untuk title -->
+                            @error('discount')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>

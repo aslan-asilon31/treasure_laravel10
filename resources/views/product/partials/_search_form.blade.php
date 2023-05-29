@@ -1,5 +1,5 @@
     <!-- SEARCH -->
-    <div class="card mb-3 card-outline card-danger collapsed-card" >
+    <div class="card mb-3 card-outline card-danger collapsed-card bg-indigo" >
         <div class="card-header">
             <h3 class="card-title">Filter <br></h3>
             <div class="card-tools">

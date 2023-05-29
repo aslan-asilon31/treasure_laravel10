@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->string('image');
             $table->string('title')->nullable();
+            $table->string('color');
             $table->text('description')->nullable();
             $table->string('slug');
             $table->timestamp('deleted_at')->nullable();

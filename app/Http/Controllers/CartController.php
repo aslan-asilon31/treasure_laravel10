@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \Cart;
 
 class CartController extends Controller
 {
@@ -20,7 +21,7 @@ class CartController extends Controller
         \Cart::add([
             'id' => $request->id,
             'name' => $request->name,
-            'price' => $request->price,
+            'price' => 0,
             'quantity' => $request->quantity,
             'attributes' => array(
                 'image' => $request->image,

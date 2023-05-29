@@ -12,6 +12,10 @@ git remote set-url origin https://<token>@github.com/<username>/<repo>
 https://larainfo.com/blogs/laravel-9-shopping-add-to-cart-tutorial-example
 
 
+==== upload multple image
+
+https://larainfo.com/blogs/laravel-9-api-multiple-images-upload-using-laravel-medialibrary
+
 ==== deskripsi dan kata kunci from chatGPT
 kata kunci pencarian : 
 saran contoh project website fullstack bernama aradan yang menjual produk-produk air jordan nike dengan deskripsi tantangan dalam pengembangan dan pencapaian
@@ -73,3 +77,8 @@ https://sangcahaya.id/backup-database-otomatis-tiap-malam-dengan-laravel-spatie-
 https://sangcahaya.id/spatie-laravel-activitylog/
 
 -----------------------------------
+
+
+
+==========================multiple delete
+https://www.itsolutionstuff.com/post/how-to-delete-multiple-records-using-checkbox-in-laravel-5-example.html

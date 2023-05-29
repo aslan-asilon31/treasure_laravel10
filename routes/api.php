@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\ProductImageController;
 
 
 /*
@@ -22,3 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::resource('visitors', VisitorController::class);
+
+
+Route::resource('productimages', ProductImageController::class);

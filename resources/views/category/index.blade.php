@@ -14,6 +14,7 @@
         <a href="" class="btn btn-md btn-warning mb-3" style="color:white;">  <i class="fa fa-file-excel"></i> </a>
         <a href="" class="btn btn-md btn-info mb-3">  <i class="fa fa-file-csv"></i> </a>
         <a href="" type="button" class="btn btn-md   mb-3" data-toggle="modal" data-target="#myModal2" style="background-color: indigo;color:white;">  <i class="fa fa-upload"></i> </a>
+        <a  class="btn mb-3" href="{{ route('categorydetails.index') }}" style="color:white;background-color:#EF4444;" ><i class="fa fa-boxes text-white"></i>Category Details</a>
 
       <div class="card-tools">
         <div class="input-group input-group-sm" style="width: 150px;">

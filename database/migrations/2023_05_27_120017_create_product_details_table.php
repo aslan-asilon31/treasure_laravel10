@@ -11,29 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('product_details', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image')->nullable();
-            $table->integer('price');
-            $table->integer('stock');
-            $table->integer('discount');
-            $table->string('status');
+            $table->integer('product_id');
+            $table->integer('sold');
+            $table->string('shipping');
+            $table->string('size');
+            $table->integer('rating');
+            $table->text('wishlist');
+            $table->text('description');
             $table->string('slug');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
 
-                // $table->string('name');
-            // $table->double('price');
-            // $table->text('description');
-            // $table->string('image');
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('product_details');
     }
 };

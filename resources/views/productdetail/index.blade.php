@@ -9,20 +9,18 @@
 
 <div class="card" style="background: linear-gradient(to right, #6366F1, #3B82F6, #EC4899);">
 
-    @include('/product/partials/_import_form')
+    {{-- @include('/product/partials/_import_form')
     @include('/product/partials/_search_form')
-    @include('/product/partials/_activity_log')
+    @include('/product/partials/_activity_log') --}}
     
     <div class="card-header">
-      <a href="{{ route('products.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+      <a href="{{ route('productdetails.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
       <a href="" class="btn btn-warning" style="color:white;"><i class="fa fa-file-excel"></i></a>
       <a href="" class="btn btn-danger"><i class="fa fa-file-pdf"></i></a>
       <a href="" class="btn btn-info"><i class="fa fa-file-csv"></i></a>
-      <button type="button" style="background-color: indigo;color:white;" class="btn " data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-history"></i></button>
-      <button class="btn" style="background-color: magenta;color:white;" id="modal_view_right" data-toggle="modal" data-target="#information_modal"><i class="fa fa-upload"></i></button>
-      <a data-url="{{ url('myproductsDeleteAll') }}" class="btn delete_all" style="background-color: rgb(130, 0, 0);color:white;"><i class="fa fa-trash"></i> Delete All</a>
-      <a href="{{ route('productimages.index') }}" class="btn bg-green"><i class="fa fa-image"></i>Product Images</a>
-      <a  class="btn " href="{{ route('productdetails.index') }}" style="color:white;background-color:#EF4444;" ><i class="fa fa-shopping-cart text-white"></i>Product Details</a>
+      {{-- <button type="button" style="background-color: indigo;color:white;" class="btn " data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-history"></i></button> --}}
+      {{-- <button class="btn" style="background-color: magenta;color:white;" id="modal_view_right" data-toggle="modal" data-target="#information_modal"><i class="fa fa-upload"></i></button> --}}
+      <a data-url="{{ url('myproductdetailsDeleteAll') }}" class="btn delete_all_detail" style="background-color: rgb(130, 0, 0);color:white;"><i class="fa fa-trash"></i> Delete All</a>
 
 
 
@@ -37,63 +35,48 @@
               <thead class="text-white">
               <tr>
                 <th width="25px"><input type="checkbox" id="master"></th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Status</th>
+                <th>sold</th>
+                <th>shipping</th>
+                <th>size</th>
+                <th>color</th>
+                <th>rating</th>
+                <th>description</th>
+                <th>slug</th>
                 <th>Actions</th>
               </tr>
               </thead>
               <tbody class="text-white" style="">
-                  @forelse ($products as $key=>$product)
+                  @forelse ($productdetails as $productdetail)
                   <tr>
-                    <td><input type="checkbox" class="sub_chk" data-id="{{$product->id}}"></td>
+                    <td><input type="checkbox" class="sub_chk" data-id="{{$productdetail->id}}"></td>
                     
                       <td class="text-center">
-                          {{ $product->name }}
+                          {{ $productdetail->sold }}
                       </td>
                       <td class="text-center">
-                          <img src="{{ Storage::url('public/products/').$product->image }}" class="rounded" style="width: 70px">
-                      </td>
-                      </td>
-                      <td class="text-center">
-                            Rp 200.000,000;-
+                          {{ $productdetail->shipping }}
                       </td>
                       <td class="text-center">
-                            25
+                          {{ $productdetail->size }}
                       </td>
                       <td class="text-center">
-                        @if($product->status =='on-sale')
-                            <span class="" style="background-color:#EF4444;color:white;">waiting for payment</span>         
-                        @elseif($product->status == 'available')
-                            <span class="" style="background-color:#F59E0B;color:white;">available</span>         
-                        @elseif($product->status == 'sold-out')
-                            <span class="" style="background-color:#10B981;color:white;">sold out</span>         
-                        @elseif($product->status == 'pre-order')
-                            <span class="" style="background-color:#3B82F6;color:white;">pre order</span>         
-                        @elseif($product->status == 'limited-stock')
-                            <span class="" style="background-color:#6366F1;color:white;">limited stock</span>         
-                        @elseif($product->status == 'back-order')
-                            <span class="" style="background-color:#8B5CF6;color:white;">back order</span>         
-                        @elseif($product->status == 'clearance')
-                            <span class="" style="background-color:#EC4899;color:white;">clearance</span>         
-                        @endif
+                          {{ $productdetail->rating }}
                       </td>
-                      {{-- <td class="text-center" 
-                          style="display: -webkit-box;max-width: 200px;max-height:300px;
-                          -webkit-line-clamp: 4;-webkit-box-orient: vertical;
-                          overflow: scroll;">
-                          {{ $product->description }}
-                      </td> --}}
                       <td class="text-center">
-                          <form action="{{ route('products.destroy', $product) }}" method="POST" id="delete-form">
-                          {{-- <form data-confirm-delete="true" action="{{ route('products.destroy', $product->id) }}" method="POST"> --}}
-                              <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
-                              <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                          {{ $productdetail->wishlist }}
+                      </td>
+                      <td class="text-center">
+                          {{ $productdetail->description }}
+                      </td>
+                      <td class="text-center">
+                          {{ $productdetail->slug }}
+                      </td>
+                      <td class="text-center">
+                          <form action="{{ route('productdetails.destroy', $productdetail) }}" method="POST" id="delete-form">
+                              <a href="{{ route('productdetails.show', $productdetail->id) }}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
+                              <a href="{{ route('productdetails.edit', $productdetail->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                               <a data-url="{{ url('myproductsDeleteAll') }}" class="btn btn-sm delete_all" style="background-color: rgb(130, 0, 0);color:white;"><i class="fa fa-trash"></i></a>
                               
-                              {{-- </form> --}}
                           </form>
                       </td>
                   </tr>
@@ -354,7 +337,7 @@
         });
 
 
-        $('.delete_all').on('click', function(e) {
+        $('.delete_all_detail').on('click', function(e) {
 
             var allVals = [];  
             $(".sub_chk:checked").each(function() {  
