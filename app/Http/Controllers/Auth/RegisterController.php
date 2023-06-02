@@ -56,19 +56,16 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
+
     protected function create(array $data)
     {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'image' => 'user-blank.png',
+            'password' => $data['password'],
         ]);
+
+        Auth::logout()->session()->flash('success', 'Your data has been updated. Please log in again.');
     }
+
 }

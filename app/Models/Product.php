@@ -46,6 +46,11 @@ class Product extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function multipleprices()
+    {
+        return $this->hasMany(MultiplePrice::class);
+    }
+
 
     // Log Activity
     protected static $logFillable = true;

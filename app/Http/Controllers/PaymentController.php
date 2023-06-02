@@ -13,4 +13,6 @@ class PaymentController extends Controller
         $payments = Payment::all();
         return view('payment.index', compact('payments'));
     }
+
+
 }

@@ -4,6 +4,10 @@ https://github.com/app-generator/design-ecommerce
 ================figma
 https://www.figma.com/file/zEQqvdGW9gDz6LtXIIcHHv/eComm-%231?type=design&node-id=0-1&t=QIKBSbHlFUdshT4l-0
 
+
+========= roles and permission with spatie
+https://www.itsolutionstuff.com/post/laravel-8-user-roles-and-permissions-tutorialexample.html
+
 ===== when cannot push to github 
 after generate new token
 git remote set-url origin https://<token>@github.com/<username>/<repo>

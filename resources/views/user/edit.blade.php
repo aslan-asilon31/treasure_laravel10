@@ -40,6 +40,18 @@
                             @enderror
                         </div>
                         
+                        <div class="form-group">
+                            <label class="font-weight-bold">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password', $user->password) }}" placeholder="Insert password">
+                        
+                            <!-- error message untuk title -->
+                            @error('password')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        
 
 
                         <div class="form-group">
@@ -49,30 +61,6 @@
 
                         <div class="form-group rounded mx-auto d-block img-fluid" >
                             <img id="preview" src="{{ Storage::url('public/users/').$user->image }}" alt="your image" class="rounded" style="width: 150px"/>
-                        </div>
-
-                        <div class="form-group">
-                            {{-- <label class="font-weight-bold">Role</label> --}}
-                            {{-- <input type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role', $user->role) }}" placeholder="Insert role"> --}}
-                            <label for="exampleSelectBorder">Roles</label>
-                            <select  class="form-control @error('role') is-invalid @enderror" name="role" value="">
-                              <option>-- Select Roles --</option>
-                              <option value="superadmin" {{($user->role === 'superadmin') ? 'selected' : ''}}>Super Admin</option>
-                              <option value="admin" {{($user->role === 'admin') ? 'selected' : ''}}>Admin</option>
-                              <option value="supervisor" {{($user->role === 'supervisor') ? 'selected' : ''}}>Supervisor</option>
-                              <option value="merchant" {{($user->role === 'merchant') ? 'selected' : ''}}>Merchant</option>
-                              <option value="productmanager" {{($user->role === 'productmanager') ? 'selected' : ''}}>Product Manager</option>
-                              <option value="marketingteam" {{($user->role === 'marketingteam') ? 'selected' : ''}}>Marketing Team</option>
-                              <option value="customerserviceteam" {{($user->role === 'customerserviceteam') ? 'selected' : ''}}>Customer Service Team</option>
-                              <option value="dataanalyst" {{($user->role === 'dataanalyst') ? 'selected' : ''}}>Data Analyst</option>
-                            </select>
-                        
-                            <!-- error message untuk title -->
-                            @error('role')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         </div>
 
                         <div class="form-group">

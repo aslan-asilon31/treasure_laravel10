@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('multiple_prices', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('product_id');
             $table->integer('price');
-            $table->integer('qty');
             $table->integer('discount');
+            $table->integer('total_price');
             $table->string('slug');
             $table->softDeletes();
             $table->timestamps();

@@ -8,16 +8,24 @@ use Hash;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Storage;
+use Spatie\Permission\Models\Role;
+use DB;
+use Illuminate\Support\Arr;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::latest()->paginate(10);
+
+        $roles = Role::all();
+        $permissions = Permission::all();
+        $users = User::orderBy('id','DESC')->paginate(5);
         $title = 'Delete User!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        return view('user.index', compact('users'));
+        return view('user.index', compact('users','roles','permissions'))
+        ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     public function export_excel() 
@@ -53,9 +61,9 @@ class UserController extends Controller
     
     public function create()
     {
-        return view('user.create');
+        $roles = Role::all();
+        return view('user.create',compact('roles'));
     }
-
 
     public function store(Request $request)
     {
@@ -73,7 +81,7 @@ class UserController extends Controller
             'id'     => $request->id,
             'name'     => $request->name,
             'email'     => $request->email,
-            'password'     => Hash::make($request->password),
+            'password'     => bcrypt($request->password),
             'image'     => $image->hashName(),
             'role'   => $request->role,
             'phone'   => $request->phone,
@@ -83,6 +91,10 @@ class UserController extends Controller
             'desc'   => $request->desc,
             'slug'   => 'user-index',
         ]);
+
+        
+
+        $user->assignRole($request->role);
 
         if($user){
             //redirect dengan pesan sukses
@@ -101,7 +113,7 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        // dd($userRequest);
+        // dd($request);
         // $validatedData = $request->validated();
 
 
@@ -117,8 +129,8 @@ class UserController extends Controller
             $user->update([
                 'name'     => $request->name,
                 'email'   => $request->email,
-                // 'password'   => Hash::make($request->password),
-                // 'image'   => $request->image,
+                'password'   => bcrypt($request->password),
+                'image'   => $request->image,
                 'role'   => $request->role,
                 'phone'   => $request->phone,
                 'address'   => $request->address,

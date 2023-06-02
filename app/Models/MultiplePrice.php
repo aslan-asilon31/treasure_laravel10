@@ -10,10 +10,15 @@ class MultiplePrice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'member_id',
+        'product_id',
         'price',
-        'qty',
         'discount',
+        'total_price',
         'slug',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

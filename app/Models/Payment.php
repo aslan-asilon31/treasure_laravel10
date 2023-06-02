@@ -11,8 +11,13 @@ class Payment extends Model
 
     protected $fillable = [
         'order_id',
-        'payment_method',
+        'payment_code',
+        'name',
+        'price',
+        'quantity',
         'amount',
+        'total_price',
+        'payment_method',
         'slug',
     ];
 

@@ -13,14 +13,24 @@ use Storage;
 use Alert;
 use App\Http\Requests\ProductRequest;
 use DB;
+use \Cart;
 
 class ProductController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:product-create', ['only' => ['create','store']]);
+         $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $productdetails = ProductDetail::all();
         $products = Product::all();
         $users = User::all();
+        $cartItems = \Cart::getContent();
         $productActivities = ActivityLog::all();
         $title = 'Delete User!';
         $text = "Are you sure you want to delete?";
@@ -28,6 +38,7 @@ class ProductController extends Controller
         return view('product.index', compact(
             'products',
             'users',
+            'cartItems',
             'productActivities',
             'productdetails'
         ));
@@ -39,6 +50,8 @@ class ProductController extends Controller
         $categories = Category::all();
         return view('visitor.landingpage', compact('products','categories'));
     }
+
+
 
         
     public function create()

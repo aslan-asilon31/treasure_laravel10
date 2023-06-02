@@ -13,9 +13,16 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('order_id');
-            $table->string('payment_method');
+            $table->unsignedBigInteger('payment_code');
+            $table->string('name');
+            $table->integer('price');
+            $table->integer('discount');
+            $table->integer('total_price');
+            $table->integer('quantity');
             $table->integer('amount');
+            $table->string('payment_method');
             $table->string('slug');
             $table->timestamps();
         });

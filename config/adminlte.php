@@ -351,6 +351,7 @@ return [
             'text'        => 'Product',
             'url'         => 'products',
             'icon'        => 'far fa-fw fa-file',
+            'can'          => ['product-list', 'product-create', 'product-edit', 'product-delete'],
 
         ],
         [

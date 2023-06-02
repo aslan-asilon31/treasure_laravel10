@@ -13,6 +13,11 @@
 .wishlist-button.active i {
   color: red;
 }
+.hover-image:hover {
+  opacity: 0.8;
+  /* transform: scale(2.5); */
+  /* transform:rotate(-90deg); */
+}
 </style>
 @endpush
 

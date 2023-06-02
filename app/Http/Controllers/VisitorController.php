@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Category;
 use App\Models\Product;
+use \Cart;
 
 class VisitorController extends Controller
 {
@@ -13,7 +14,8 @@ class VisitorController extends Controller
     {
         $products = Product::all();
         $categories = Category::all();
-        return view('visitor.landingpage' , compact('categories','products'));
+        $cartItems = \Cart::getContent();
+        return view('visitor.landingpage' , compact('cartItems','categories','products'));
     }
 
 

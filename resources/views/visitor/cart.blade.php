@@ -175,6 +175,7 @@ h4 {
 @endpush
 
 @section('content')
+
 <div class="wrapper d-flex flex-column">
     <!-- Start Header -->
     <header class="header position-sticky">
@@ -385,7 +386,6 @@ h4 {
 
         <!-- Start Cart -->
 
-        @foreach ($cartItems as $item)
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <main id="cart" style="max-width:960px; margin-top:-200px;">
@@ -394,60 +394,88 @@ h4 {
                 <p class="text-green-800">{{ $message }}</p>
             </div>
         @endif
-        <div class="back"><a href="/">&#11178; shop</a></div>
-        <h1>Your Cart</h1>
+        <div class="back" style="margin-bottom:0px;"><a href="/">&#11178; shop</a></div>
+        
         <div class="container-fluid">
+          <h4 class="bg-red">Your Cart</h4>
+          @foreach ($cartItems as $item)
             <div class="row align-items-start">
             <div class="col-12 col-sm-8 items">
                 <!--1-->
+                @foreach ($productdetails as $pd)
+                @if($item->id == $pd->product_id)
+                  
                 <div class="cartItem row align-items-start">
                 <div class="col-3 mb-2">
-                    <img src="{{ Storage::url('public/products/').$item->attributes->image }}" class=" rounded" alt="Thumbnail" style="width: 200px; height 200px;">
+                    <img src="{{ Storage::url('public/products/').$item->attributes->image }}" class=" rounded" alt="Thumbnail" style="width: 100px">
                 </div>
                 <div class="col-5 mb-2">
-                    <h6 class="">{{ $item->name }}</h6>
-                    <p class="pl-1 mb-0">20 x 24</p>
-                    <p class="pl-1 mb-0">Matte Print</p>
+                    <h6 class="">{{ $item->name }} </b> </h6>
+                    {{-- <p class="pl-1 mb-0">Matte Print</p> --}}
                 </div>
-                <div class="col-2">
-                    <p class="cartItemQuantity p-1 text-center">1</p>
+                <div class="col-2 " style="background-color:indigo;color:white;">
+                  {{ round($pd->discount * 100) }}% OFF 
+
                 </div>
-                <div class="col-2">
-                    <p id="cartItem1Price">Rp {{ $item->price }}</p>
-                </div>
-                    <form action="{{ route('cart.update') }}" method="POST">
+                  @foreach ($multipleprices as $pp)
+                    @if($item->id == $pp->product_id)
+                    <div class="col-lg-12 mb-0 d-flex">
+                      <h6>Price </h6> &nbsp; Rp {{ $pp->price }} &nbsp;&nbsp; 
+                      <span class="" style=""> X</span>&nbsp;&nbsp; 
+                      <p class="cartItemQuantity p-1 text-center ">{{ number_format($item->quantity, 0, ',', '.') }}</p> &nbsp;&nbsp; 
+                      = &nbsp; Rp <s> {{ $amounts = number_format($item->price*$item->quantity) }}</s> &nbsp; 
+                      <h6 class="" >  <b style="color:red;"> 
+                            Rp {{ $pp->total_price }}
+                            {{-- Rp {{ number_format($amounts - $total_discounts) }}  </h6>  --}}
+                          </div>
+                    @endif
+                        
+                  @endforeach
+                  <div class="col-lg-12 mt-0 d-flex">
+                      <h6>description </h6>  &nbsp;
+                          {{ $pd->description }}
+                    @endif
+                  @endforeach  
+                  </div>
+
+                  <div class="d-flex">
+                    <form class="mb-0" action="{{ route('cart.update') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="id" value="{{ $item->id}}" >
-                    <input type="text" name="quantity" value="{{ $item->quantity }}" 
-                    class="w-16 text-center h-6 text-gray-800 outline-none rounded border border-blue-600" />
-                    <button class="" style="background-color:indigo;color:white;">Update</button>
+                        <input type="hidden" name="id" class="" style="width:5px;" value="{{ $item->id}}" >
+                        <input type="text" name="quantity" value="{{ $item->quantity }}" 
+                        class=" text-center h-6 text-gray-800 outline-none rounded border border-blue-600" style="width:50px;"/>
+                        <button class="" style="background-color:indigo;color:white;">Update</button>
                     </form>
                     <form action="{{ route('cart.remove') }}" method="POST">
                         @csrf
                         <input type="hidden" value="{{ $item->id }}" name="id">
-                        <button class="" style="background-color:red;color:white;">X</button>
+                        <button class="" style="background-color:red;color:white;">delete</button>
                      </form>
+
+                  </div>
                 </div>
                 <hr>
                 <!--1-->
                 <hr>
             </div>
+        @endforeach
+
             <div class="col-12 col-sm-4 p-3 proceed form">
                 <div class="row m-0">
-                <div class="col-sm-8 p-0">
-                    <h6>Subtotal</h6>
-                </div>
-                <div class="col-sm-4 p-0">
-                    <p id="subtotal">Rp {{ Cart::getTotal() }}</p>
-                </div>
+                  <div class="col-sm-8 p-0 ">
+                      <h6>Total Price</h6>
+                  </div>
+                  <div class="col-sm-4 p-0">
+                      <p id="tax">Rp {{ number_format(Cart::getTotal(), 0, ',', '.') }}</p>
+                  </div>
                 </div>
                 <div class="row m-0">
-                {{-- <div class="col-sm-8 p-0 ">
-                    <h6>Tax</h6>
-                </div>
-                <div class="col-sm-4 p-0">
-                    <p id="tax">Rp 10%</p>
-                </div> --}}
+                  <div class="col-sm-8 p-0 ">
+                      <h6>PPN 1,1%</h6>
+                  </div>
+                  <div class="col-sm-4 p-0">
+                      <p id="tax">Rp {{ number_format($taxRate = Cart::getTotal() * 0.011, 0, ',', '.') }}</p>
+                  </div>
                 </div>
                 <hr>
                 <div class="row mx-0 mb-2">
@@ -455,13 +483,14 @@ h4 {
                     <h5>Total</h5>
                 </div>
                 <div class="col-sm-4 p-0">
-                    <p id="total">Rp {{ Cart::getTotal() }}</p>
+                    <p id="total">Rp {{ number_format(Cart::getTotal() - $taxRate, 0, ',', '.')  }}</p>
                 </div>
                 </div>
-                <a href="#"><button id="btn-checkout" class="shopnow" style="background-color:green;color:white;"><span>Checkout</span> </button></a>
+
+                <a href="payments/midtrans-notification"><button class="shopnow" style="background-color:green;color:white;font-size:15px;"><span>Checkout</span> </button></a>
                 <form action="{{ route('cart.clear') }}" method="POST">
                     @csrf
-                    <button class="px-6 py-2 text-sm  ="style="background-color:red;color:white;">Clear Carts</button>
+                    <button class="px-2 py-1 text-sm  ="style="background-color:red;color:white;">Clear Carts</button>
                 </form>
             </div>
             </div>
@@ -469,7 +498,6 @@ h4 {
         </div>
         </main>
 
-        @endforeach
 
 <footer class="container">
 </footer>

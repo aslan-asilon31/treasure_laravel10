@@ -26,23 +26,23 @@ class BackupDbCron extends Command
      */
     public function handle()
     {
-        \Log::info("Cron job Berhasil di jalankan " . date('Y-m-d H:i:s'));
+        // \Log::info("Cron job Berhasil di jalankan " . date('Y-m-d H:i:s'));
 
-        $response = Http::get('https://jsonplaceholder.typicode.com/users');
+        // $response = Http::get('https://jsonplaceholder.typicode.com/users');
         
-        $users = $response->json();
+        // $users = $response->json();
     
-        if (!empty($users)) {
-            foreach ($users as $key => $user) {
-                if(!User::where('email', $user['email'])->exists() ){
-                    User::create([
-                        'name' => $user['name'],
-                        'email' => $user['email'],
-                        'password' => bcrypt('aslanuser')
-                    ]);
-                }
-            }
-        }
+        // if (!empty($users)) {
+        //     foreach ($users as $key => $user) {
+        //         if(!User::where('email', $user['email'])->exists() ){
+        //             User::create([
+        //                 'name' => $user['name'],
+        //                 'email' => $user['email'],
+        //                 'password' => bcrypt('aslanuser')
+        //             ]);
+        //         }
+        //     }
+        // }
 
     }
 }
