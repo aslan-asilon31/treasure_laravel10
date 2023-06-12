@@ -336,12 +336,6 @@ return [
 
         ],
         [
-            'text'        => 'Member',
-            'url'         => 'members',
-            'icon'        => 'fas fa-fw fa-users',
-
-        ],
-        [
             'text'        => 'Order',
             'url'         => 'orders',
             'icon'        => 'fas fa-fw fa-cart-plus',
@@ -363,12 +357,6 @@ return [
         [
             'text'        => 'Transaction Product',
             'url'         => 'transactionproducts',
-            'icon'        => 'fas fa-fw fa-money-bill',
-
-        ],
-        [
-            'text'        => 'Multiple Price',
-            'url'         => 'multipleprices',
             'icon'        => 'fas fa-fw fa-money-bill',
 
         ],

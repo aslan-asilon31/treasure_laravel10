@@ -64,6 +64,22 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="font-weight-bold">Role:</label>
+                            <select name="roles[]" class="form-control" multiple>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        
+                            <!-- error message for roles -->
+                            @error('roles')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label class="font-weight-bold">Phone</label>
                             <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone', $user->phone) }}" placeholder="Insert phone">
                         
@@ -77,7 +93,7 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Address</label>
-                            <textarea type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address', $user->address) }}" placeholder="Insert address"></textarea>
+                            <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address', $user->address) }}" placeholder="Insert address">
                         
                             <!-- error message untuk address -->
                             @error('address')
@@ -153,9 +169,7 @@
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace( '' );
-</script>
+
 <script>
     selectImage.onchange = evt => {
         preview = document.getElementById('preview');

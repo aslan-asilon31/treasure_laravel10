@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'User')
+@section('title', 'User Management')
 
 @section('content_header')
-    <h1>User</h1>
+    <h1>User Management</h1>
 @stop
 
 @section('content')
@@ -81,7 +81,8 @@ body {
       <a href="{{ route('user.export-csv') }}" class="btn btn-md btn-info mb-3">  <i class="fa fa-file-csv"></i> </a>
       <a href="" type="button" class="btn btn-md   mb-3" data-toggle="modal" data-target="#myModal2" style="background-color: indigo;color:white;">  <i class="fa fa-upload"></i> </a>
       <a href="{{ route('roles.index') }}" class="btn btn-md bg-pink mb-3">  <i class="fa fa-users"></i> Roles </a>
-      <a href="{{ route('roles.index') }}" class="btn btn-md bg-cyan mb-3">  <i class="fa fa-network-wired"></i> Permissions </a>
+      <a href="{{ route('permissions.index') }}" class="btn btn-md bg-cyan mb-3">  <i class="fa fa-network-wired"></i> Permissions </a>
+      <a href="{{ route('members.index') }}" class="btn btn-md bg-orange mb-3 " style="color:white;"> <span class="text-white"><i class="fa fa-users"></i> Members</span>  </a>
 
       <div class="card-tools">
         <div class="input-group input-group-sm" style="width: 150px;">
@@ -128,6 +129,8 @@ body {
                         <p style="background-color: rgb(122, 23, 81);border-radius:3px; color:white; font-weight:bold;">supervisor</p>
                         @elseif($user->role == 'merchant')
                         <p style="background-color: rgb(87, 27, 27);border-radius:3px; color:white; font-weight:bold;">merchant</p>
+                        @elseif($user->role == 'manager')
+                        <p style="background-color: rgb(21, 61, 73);border-radius:3px; color:white; font-weight:bold;">manager</p>
                         @elseif($user->role == 'productmanager')
                         <p style="background-color: rgb(128, 223, 40);border-radius:3px; color:white; font-weight:bold;">product manager</p>
                         @elseif($user->role == 'marketingteam')
@@ -157,9 +160,14 @@ body {
                       </td>
                       <td class="text-center">
                         @if(Cache::has('user-is-online-' . $user->id))
-                            <span class="text-success">Online</span>
-                        @else
-                            <span class="text-secondary">Offline</span>
+                          <div class="ring-container">
+                            <div class="ringring"></div>
+                            <div class="circle"></div>
+                          </div>
+                          @else
+                          <div class="ring-container">
+                            <div class="circle-offline"></div>
+                          </div>
                         @endif
                       </td>
                     <td class="text-center">
@@ -214,6 +222,50 @@ body {
 @stop
 
 @section('css')
+<style>
+  /* online offline sign */
+  .ring-container {
+    position: relative;
+}
+
+.circle {
+    width: 15px;
+    height: 15px;
+    background-color: #62bd19;
+    border-radius: 50%;
+    position: absolute;
+    top: 23px;
+    left: 23px;
+}
+
+.circle-offline {
+    width: 15px;
+    height: 15px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 23px;
+    left: 23px;
+}
+
+.ringring {
+    border: 3px solid #62bd19;
+    -webkit-border-radius: 30px;
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    left: 18px;
+    top: 15px;
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite; 
+    opacity: 0.0
+}
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+    50% {opacity: 1.0;}
+    100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+</style>
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 

@@ -12,12 +12,12 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Illuminate\Support\Arr;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Model_has_roles;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
-
         $roles = Role::all();
         $permissions = Permission::all();
         $users = User::orderBy('id','DESC')->paginate(5);
@@ -108,12 +108,16 @@ class UserController extends Controller
     
     public function edit(User $user)
     {
-        return view('user.edit', compact('user'));
+        // dd($user);
+        $roles = Role::all();
+        return view('user.edit', compact('user','roles'));
     }
 
     public function update(Request $request, User $user)
     {
-        // dd($request);
+        $roles = $request->get('roles', []);
+        $rolesString = implode(', ', $roles);
+        // dd($roles);
         // $validatedData = $request->validated();
 
 
@@ -129,9 +133,8 @@ class UserController extends Controller
             $user->update([
                 'name'     => $request->name,
                 'email'   => $request->email,
-                'password'   => bcrypt($request->password),
-                'image'   => $request->image,
-                'role'   => $request->role,
+                'password'   => $request->password,
+                'role'   => $rolesString,
                 'phone'   => $request->phone,
                 'address'   => $request->address,
                 'status'   => $request->status,

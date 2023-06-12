@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Permissions')
+@section('title', 'Permissions Management')
 
 @section('content_header')
-    <h1>Permissions</h1>
+    <h1>Permissions Management</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
 
 <div class="card">
     <div class="card-header">
-      @can('permission-create')
+      @can('role-create')
       <a href="{{ route('permissions.create') }}" class="btn btn-md btn-success mb-3">  <i class="fa fa-plus"></i> </a>
       @endcan
 
@@ -49,17 +49,17 @@
                  <th>Name</th>
                  <th width="280px">Action</th>
               </tr>
-                @foreach ($roles as $key => $role)
+                @foreach ($permissions as $key => $permission)
                 <tr>
                     <td>{{ ++$i }}</td>
-                    <td>{{ $role->name }}</td>
+                    <td>{{ $permission->name }}</td>
                     <td>
-                        <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
+                        <a class="btn btn-info" href="{{ route('permissions.show',$permission->id) }}">Show</a>
                         @can('role-edit')
-                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
+                            <a class="btn btn-primary" href="{{ route('permissions.edit',$permission->id) }}">Edit</a>
                         @endcan
                         @can('role-delete')
-                            {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
+                            {!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
                         @endcan
@@ -69,7 +69,7 @@
             </table>
             
             
-            {!! $roles->render() !!}
+            {!! $permissions->render() !!}
 
 
         </div>

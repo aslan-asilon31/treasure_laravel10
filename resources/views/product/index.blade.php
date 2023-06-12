@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Product')
+@section('title', 'Product Management')
 
 @section('content')
 @include('sweetalert::alert')
@@ -23,6 +23,7 @@
       <a data-url="{{ url('myproductsDeleteAll') }}" class="btn delete_all" style="background-color: rgb(130, 0, 0);color:white;"><i class="fa fa-trash"></i> Delete All</a>
       <a href="{{ route('productimages.index') }}" class="btn bg-green"><i class="fa fa-image"></i>Product Images</a>
       <a  class="btn " href="{{ route('productdetails.index') }}" style="color:white;background-color:#EF4444;" ><i class="fa fa-shopping-cart text-white"></i>Product Details</a>
+      <a  class="btn " href="{{ route('multipleprices.index') }}" style="color:white;background-color:#4463ef;" ><i class="fa fa-money-bill text-white"></i>Product Prices</a>
 
 
 

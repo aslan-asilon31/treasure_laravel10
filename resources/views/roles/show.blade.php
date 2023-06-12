@@ -11,7 +11,7 @@
 
 <div class="card">
     <div class="card-header">
-        <a href="{{ route('roles.index') }}" class="btn btn-md bg-pink mb-3">  <i class="fa fa-arrow-left"></i> Back</a>
+      <a href="{{ route('roles.index') }}" class="btn btn-md bg-pink mb-3">  <i class="fa fa-arrow-left"></i> Back</a>
       <a href="{{ route('roles.create') }}" class="btn btn-md btn-success mb-3">  <i class="fa fa-plus"></i> </a>
       <a href="{{ route('user.export-pdf') }}" class="btn btn-md btn-danger mb-3">  <i class="fa fa-file-pdf"></i> </a>
       <a href="{{ route('user.export-excel') }}" class="btn btn-md btn-warning mb-3" style="color:white;">  <i class="fa fa-file-excel"></i> </a>
