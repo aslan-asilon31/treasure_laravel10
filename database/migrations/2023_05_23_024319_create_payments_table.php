@@ -13,16 +13,10 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('payment_code');
-            $table->string('name');
-            $table->integer('price');
-            $table->integer('discount');
-            $table->integer('total_price');
-            $table->integer('quantity');
-            $table->integer('amount');
-            $table->string('payment_method');
+            $table->integer('qty');     
+            $table->integer('payment_total');
+            $table->enum('status', ['Unpaid','Paid','Failed']);
+            $table->string('snap_token', 36)->nullable();
             $table->string('slug');
             $table->timestamps();
         });

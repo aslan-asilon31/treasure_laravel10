@@ -44,6 +44,7 @@ use App\Http\Controllers\ActivityLogController;
 //     return view('visitor.landingpage');
 // });
 Route::get('/', [App\Http\Controllers\VisitorController::class, 'index'])->name('visitor');
+Route::get('search', [App\Http\Controllers\VisitorController::class, 'search'])->name('search');
 
 Auth::routes();
 
@@ -70,7 +71,8 @@ Route::resource('categorydetails', CategoryDetailController::class);
 Route::resource('galleries', GalleryController::class);
 // Route::resource('orders', OrderController::class);
 
-Route::resource('orders', OrderController::class)->only(['index', 'show']);
+// Route::resource('orders', OrderController::class)->only(['index', 'show']);
+Route::post('orders/checkout',[OrderController::class, 'checkout'])->name('orders.checkout');
 // Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'checkout']);
 
 
@@ -105,3 +107,11 @@ Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear'
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// Order
+
+// Route::get('/order',[OrderController::class, 'index']);
+Route::post('/checkout',[OrderController::class, 'checkout']);
+// Route::get('/invoice/{id}',[OrderController::class, 'invoice']);
+

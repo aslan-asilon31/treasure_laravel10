@@ -22,7 +22,7 @@ class CartController extends Controller
     public function productCheckout(Request $request)
     {
         $cartItems = \Cart::getContent();
-        dd($request);
+        // dd($request);
 
         \Cart::add([
             'id' => $request->id,
@@ -69,16 +69,16 @@ class CartController extends Controller
         
                 // $amounts = $request->price * $request->quantity;
         
-                $payment = Payment::create([
-                    'product_id' => $request->id,
-                    'order_id' => $request->id,
-                    'payment_code' => $request->id,
-                    'name' => $request->name,
-                    'price' => $request->price,
-                    'discount' => $request->discount,
-                    'total_price' => $request->total_price,
-                    'quantity' => $request->quantity,
-                ]);
+                // $payment = Payment::create([
+                //     'product_id' => $request->id,
+                //     'order_id' => $request->id,
+                //     'payment_code' => $request->id,
+                //     'name' => $request->name,
+                //     'price' => $request->price,
+                //     'discount' => $request->discount,
+                //     'total_price' => $request->total_price,
+                //     'quantity' => $request->quantity,
+                // ]);
 
             }
 
@@ -132,8 +132,8 @@ class CartController extends Controller
     public function removeCart(Request $request)
     {
         \Cart::remove($request->id);
-        $payment = Payment::where('order_id',$request->id);
-        $payment->delete();
+        // $payment = Payment::where('order_id',$request->id);
+        // $payment->delete();
         session()->flash('success', 'Item Cart Remove Successfully !');
 
         return redirect()->route('cart.list');
@@ -142,7 +142,7 @@ class CartController extends Controller
     public function clearAllCart(Request $request)
     {
         \Cart::clear();
-        $payment->truncate();
+        // $payment->truncate();
 
         session()->flash('success', 'All Item Cart Clear Successfully !');
 

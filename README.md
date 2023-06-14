@@ -43,7 +43,6 @@
 
 ![aradan_codeigniter_db_revisi1](https://github.com/aslan-asilon31/aradan_laravel10_bootstrap/assets/116990574/6d3c2a4d-bb0d-43d4-a523-bec5e632d9d3)
 
-
 </div>
 
 <hr>

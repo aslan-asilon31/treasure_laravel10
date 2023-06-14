@@ -14,5 +14,9 @@ class PaymentController extends Controller
         return view('payment.index', compact('payments'));
     }
 
+    public function show(){
+
+    }
+
 
 }

@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\Midtrans\CreateSnapTokenService;
+use App\Models\Order;
+use App\Models\Payment;
+use \Cart;
+use App\Models\ProductDetail;
+use App\Models\MultiplePrice;
 
 class OrderController extends Controller
 {
@@ -29,37 +34,36 @@ class OrderController extends Controller
 
     public function checkout( Request $request)
     {
-        dd($request);
-        // $this->validate($request,[
+        $productdetails = ProductDetail::all();
+        $multipleprices = MultiplePrice::all();
+        $cartItems = \Cart::getContent();
 
-        // ])
-        $request->request->add(['total_price' => $request->qty * 100000, 'status' => 'unpaid' ]);
-        // dd($request);
-        $order = Order::create($request->all());
-
+                // Set your Merchant Server Key
+                \Midtrans\Config::$serverKey = config('midtrans.server_key');
+                // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+                \Midtrans\Config::$isProduction = false;
+                // Set sanitization on (default)
+                \Midtrans\Config::$isSanitized = true;
+                // Set 3DS transaction for credit card to true
+                \Midtrans\Config::$is3ds = true;
         
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
+                $params = array(
+                    'transaction_details' => array(
+                        'order_id' => 12345, // New value for order_id
+                        'gross_amount' => 100.00, // New value for gross_amount
+                    ),
+                );
+                
+        
+                $snapToken = \Midtrans\Snap::getSnapToken($params);
+                //   dd($snapToken);
+                $payment = Payment::create([
+                    'qty'     => $request->item_id,
+                    'payment_total'     => $request->price_total,
+                    'status'     => 'Unpaid',
+                    'snap_token'     => $snapToken,
+                ]);
 
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => $order->id,
-                'gross_amount' => $order->total_price,
-            ),
-            'customer_details' => array(
-                'name' => $request->name,
-                'phone' => $request->phone,
-            ),
-        );
-
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
-        // dd($snapToken);
-        return view('checkout', compact('snapToken', 'order'));
+                return view('visitor.order.checkout', compact('snapToken','cartItems','productdetails','multipleprices'));
     }
 }

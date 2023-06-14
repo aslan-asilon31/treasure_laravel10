@@ -9,16 +9,19 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'order_id',
-        'payment_code',
-        'name',
-        'price',
-        'quantity',
-        'amount',
-        'total_price',
-        'payment_method',
-        'slug',
-    ];
+    protected $guarded = [];
+
+    // protected $fillable = [
+    //     'order_id',
+    //     'payment_code',
+    //     'name',
+    //     'status',
+    //     'price',
+    //     'quantity',
+    //     'amount',
+    //     'total_price',
+    //     'payment_method',
+    //     'slug',
+    // ];
 
 }

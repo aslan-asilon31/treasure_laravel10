@@ -233,78 +233,11 @@
     <!-- Main Content -->
     <main class="main-content flex-grow-1">
       <div class="container-xxl">
-        <!-- Start main Banner -->
-        <section class="main-banner position-relative">
-          <h2 class="banner-border-text" data-aos="zoom-in-up">
-            THE NEW 2023
-          </h2>
-          <h1 class="banner-title animate__animated animate__flash animate__infinite infinite animate__slow" data-aos="flip-up" data-aos-delay="500">
-            AIR JORDAN
-          </h1>
-          <figure
-            class="figure d-block main-banner-figure mb-0"
-            data-aos="fade-up"
-          >
-            <img
-              class="figure-img img-fluid d-block mx-auto mb-0 animate__animated animate__bounce animate__infinite infinite animate__slow"
-              src="{{asset('frontend/img/banner-img-lg.png')}}"
-              alt=""
-            />
-          </figure>
-          <p class="banner-text" data-aos="fade-up" data-aos-delay="200">
-            We know how large objects will act,
-          </p>
-          <a
-            href="src/product.html"
-            class="btn btn-primary rounded-0 text-uppercase"
-            data-aos="flip-left"
-          >
-            <span class="text-white">Shop now</span>
-          </a>
-          <!-- Button trigger modal -->
-          <button
-            type="button"
-            class="btn btn-primary rounded-0 text-uppercase modal-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#video-modal"
-          >
-            <img  src="{{ ('frontend/img/ic-play.svg') }}" alt="">
-          </button>
-        </section>
-        <!-- End main Banner -->
-
+        <h5>Results</h5>
         <!-- Start New Product -->
         @include('./visitor/partials/product')
         <!-- End New Product -->
 
-        <!-- Start Popular Picks -->
-        @include('./visitor/partials/popular')
-        <!--  End Popular Picks -->
-
-        <!-- Start About the Brand-->
-        @include('./visitor/partials/about')
-        <!--  End About the Brand-->
-      </div>
-
-      <!-- Start Payday sale now-->
-      @include('./visitor/partials/payday')        
-      <!-- End Payday sale now -->
-
-      <!-- Start Explore more categories-->
-      @include('./visitor/partials/category')        
-      <!--  End Explore more categories-->
-
-      <!-- Start Review-->
-      @include('./visitor/partials/review')        
-      <!--  End Review-->
-
-      <!-- Start Quick Questions to ask-->
-      @include('./visitor/partials/question')        
-      <!--  End Quick Questions to ask-->
-
-      <!-- Start Follow products on Instagram-->
-      @include('./visitor/partials/follow')        
-      <!--  End Follow products on Instagram-->
     </main>
     <!-- End Main Content -->
 
@@ -361,7 +294,7 @@
                   data-aos="zoom-in-left"
                 >
                   <img
-                    src="{{asset('frontend/img/logo-footer.svg')}}"
+                    src="{{asset('frontend/img/logo.png')}}"
                     alt="Aradan "
                   />
                 </a>
