@@ -4,13 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CategoryDetail;
+use Yajra\DataTables\Facades\Datatables;
 
 class CategoryDetailController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categorydetails = CategoryDetail::all();
-        return view('categorydetail.index', compact('categorydetails'));
+        if ($request->ajax()) {
+            $data = CategoryDetail::select('*');
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<a href="' . route('categorydetails.show', $row->id) . '" class="detail btn btn-info btn-sm" style="color:white;"> <i class="fa fa-eye"></i> </a>';
+                    $actionBtn .= '<a href="' . route('categorydetails.edit', $row->id) . '" class="edit btn btn-success btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $actionBtn .= '<a href="' . route('categorydetails.destroy', $row->id) . '" class="delete btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('categorydetail.index');
     }
     
     public function create()

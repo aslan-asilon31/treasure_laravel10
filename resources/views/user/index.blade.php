@@ -83,36 +83,35 @@ body {
       <a href="{{ route('roles.index') }}" class="btn btn-md bg-pink mb-3">  <i class="fa fa-users"></i> Roles </a>
       <a href="{{ route('permissions.index') }}" class="btn btn-md bg-cyan mb-3">  <i class="fa fa-network-wired"></i> Permissions </a>
       <a href="{{ route('members.index') }}" class="btn btn-md bg-orange mb-3 " style="color:white;"> <span class="text-white"><i class="fa fa-users"></i> Members</span>  </a>
+      <button class="btn btn-md bg-fuchsia mb-3 search-user-btn"  style="color:white;"> <span class="text-white"><i class="fa fa-search"></i> </span>  </button>
 
-      <div class="card-tools">
-        <div class="input-group input-group-sm" style="width: 150px;">
-          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+      {{-- <div class="form-group">
+        <input type="text" class="form-controller" id="search" name="search" placeholder="Search">
+      </div> --}}
 
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-default">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-      </div>
     </div>
     <!-- /.card-header -->
-    <div class="card-body">
+    <div class="card-body" style="color:black;">
         <div style="overflow-x:auto;white-space: nowrap;">
-            <table id="" class="table table-bordered" >
+            <table id="" class="table table-bordered data-table" >
               <thead>
               <tr>
                 <th>Image</th>
                 <th>Name</th>
+                <th>Email</th>
                 <th>Role</th>
+                <th>Phone</th>
+                <th>Address</th>
                 <th>Status</th>
-                <th>Is active</th>
+                {{-- <th>Is active</th> --}}
                 <th>Last seen</th>
+                <th>Desc</th>
                 <th>Slug</th>
                 <th>Actions</th>
               </tr>
               </thead>
-              <tbody style="">
-                  @forelse ($users as $user)
+              <tbody >
+                  {{-- @forelse ($users as $user)
                   <tr>
                       <td class="text-center">
                           <img src="{{ Storage::url('public/users/').$user->image }}" class="rounded" style="width: 50px">
@@ -155,10 +154,6 @@ body {
                         @endif
                       </td>
                       <td class="text-center">
-                        {{ Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
-                          {{-- {{ $user->is_active }} --}}
-                      </td>
-                      <td class="text-center">
                         @if(Cache::has('user-is-online-' . $user->id))
                           <div class="ring-container">
                             <div class="ringring"></div>
@@ -169,6 +164,9 @@ body {
                             <div class="circle-offline"></div>
                           </div>
                         @endif
+                      </td>
+                      <td class="text-center">
+                        {{ Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
                       </td>
                     <td class="text-center">
                         {{ $user->slug }}
@@ -187,10 +185,10 @@ body {
                     <div class="alert alert-danger">
                      There is no data
                     </div>
-                  @endforelse
+                  @endforelse --}}
               </tfoot>
             </table>
-            {{ $users->links() }}
+            {{-- {{ $users->links() }} --}}
         </div>
     </div>
     <!-- /.card-body -->
@@ -222,6 +220,15 @@ body {
 @stop
 
 @section('css')
+
+    {{-- Yajra DataTable --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+    {{-- End Yajra DataTable --}}
+
+
 <style>
   /* online offline sign */
   .ring-container {
@@ -266,47 +273,106 @@ body {
     100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
 }
 </style>
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
+
+
+
 @stop
 
 @section('js')
 
+
+
+
+{{-- Yajra Data Table --}}
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-    function deleteProduct(productID) {
-        Swal.fire({
-            title: 'Are you sure want to delete this product ?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Hapus',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Mengirim permintaan DELETE ke route 'users.destroy'
-                axios.delete('/users/' + productID)
-                    .then(response => {
-                        // Tampilkan SweetAlert2 sukses jika penghapusan berhasil
-                        Swal.fire('Success!', 'Your Product Has Been Deleted.', 'success');
-                        // Lakukan tindakan lain yang diinginkan, misalnya refresh halaman
-                        location.reload();
-                    })
-                    .catch(error => {
-                        // Tampilkan SweetAlert2 error jika penghapusan gagal
-                        Swal.fire('Error!', 'Your Product Failed To Delete !.', 'error');
-                    });
-            }
+<script type="text/javascript">
+    var table;
+
+    $(function () {
+        table = $('.data-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('users.index') }}",
+            columns: [
+                {data: 'image', name: 'image'},
+                {data: 'name', name: 'name'},
+                {data: 'email', name: 'email'},
+                {data: 'role', name: 'role'},
+                {data: 'phone', name: 'phone'},
+                {data: 'address', name: 'address'},
+                {data: 'status', name: 'status'},
+                // {
+                //     data: 'is_active',
+                //     name: 'is_active',
+                //     render: function (data, type, row) {
+                //         var statusIndicator = '';
+                //         if (data) {
+                //             statusIndicator = '<div class="ring-container"><div class="ringring"></div><div class="circle"></div></div>';
+                //         } else {
+                //             statusIndicator = '<div class="ring-container"><div class="circle-offline"></div></div>';
+                //         }
+                //         return statusIndicator;
+                //     }
+                // },
+                {data: 'last_seen', name: 'last_seen'},
+                {data: 'desc', name: 'desc'},
+                {data: 'slug', name: 'slug'},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
         });
-    }
+    });
+
+
+
 </script>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+{{-- End Yajra Data Table --}}
+
 <script>
+
+    // function deleteProduct(productID) {
+    //     Swal.fire({
+    //         title: 'Are you sure want to delete this product ?',
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#d33',
+    //         cancelButtonColor: '#3085d6',
+    //         confirmButtonText: 'Hapus',
+    //         cancelButtonText: 'Batal'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             // Mengirim permintaan DELETE ke route 'users.destroy'
+    //             axios.delete('/users/' + productID)
+    //                 .then(response => {
+    //                     // Tampilkan SweetAlert2 sukses jika penghapusan berhasil
+    //                     Swal.fire('Success!', 'Your Product Has Been Deleted.', 'success');
+    //                     // Lakukan tindakan lain yang diinginkan, misalnya refresh halaman
+    //                     location.reload();
+    //                 })
+    //                 .catch(error => {
+    //                     // Tampilkan SweetAlert2 error jika penghapusan gagal
+    //                     Swal.fire('Error!', 'Your Product Failed To Delete !.', 'error');
+    //                 });
+    //         }
+    //     });
+    // }
+</script>
+
+
+{{-- <script>
     //message with toastr
     @if(session()->has('success'))
     
@@ -317,5 +383,54 @@ body {
         toastr.error('{{ session('error') }}', 'GAGAL!'); 
         
     @endif
-</script>
+</script> --}}
+
+{{-- 
+<script>
+  // Search User
+  $(document).ready(function() {
+  $('#user-search-form').submit(function(e) {
+    e.preventDefault(); // Prevent form submission
+
+    // Get the search query from the input field
+    var query = $('#search-input').val();
+
+    // Send an AJAX request to the server
+    $.ajax({
+      url: '/user-search', // Replace with your Laravel route for handling the search
+      method: 'POST', // Adjust the HTTP method as needed
+      data: {
+        query: query
+      },
+      success: function(response) {
+        // Handle the response from the server
+        $('#search-results').html(response);
+      },
+      error: function(xhr, status, error) {
+        // Handle errors, if any
+        console.log(error);
+      }
+    });
+  });
+});
+</script> --}}
+
+{{-- 
+<script type="text/javascript">
+  $('#search').on('keyup',function(){
+  $value=$(this).val();
+  $.ajax({
+  type : 'get',
+  url : '{{URL::to('user-search')}}',
+  data:{'search':$value},
+  success:function(data){
+  $('tbody').html(data);
+  }
+  });
+  })
+  </script>
+  <script type="text/javascript">
+  $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+</script> --}}
+
 @stop

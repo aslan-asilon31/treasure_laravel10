@@ -10,8 +10,8 @@
 <div class="card" style="background: linear-gradient(to right, #6366F1, #3B82F6, #EC4899);">
 
     @include('/product/partials/_import_form')
-    @include('/product/partials/_search_form')
-    @include('/product/partials/_activity_log')
+    {{-- @include('/product/partials/_search_form') --}}
+    {{-- @include('/product/partials/_activity_log') --}}
     
     <div class="card-header">
       <a href="{{ route('products.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
@@ -25,8 +25,6 @@
       <a  class="btn " href="{{ route('productdetails.index') }}" style="color:white;background-color:#EF4444;" ><i class="fa fa-shopping-cart text-white"></i>Product Details</a>
       <a  class="btn " href="{{ route('multipleprices.index') }}" style="color:white;background-color:#4463ef;" ><i class="fa fa-money-bill text-white"></i>Product Prices</a>
 
-
-
     </div>
     <!-- /.card-header -->
 
@@ -34,7 +32,7 @@
 
     <div class="card-body " style="background: linear-gradient(to right, #6366F1, #3B82F6, #EC4899);">
         <div style="overflow-x:auto;">
-            <table id="" class="table table-bordered" >
+            <table id="" class="table table-bordered data-table" >
               <thead class="text-white">
               <tr>
                 <th width="25px"><input type="checkbox" id="master"></th>
@@ -47,10 +45,10 @@
               </tr>
               </thead>
               <tbody class="text-white" style="">
-                  @forelse ($products as $key=>$product)
-                  <tr>
-                    <td><input type="checkbox" class="sub_chk" data-id="{{$product->id}}"></td>
-                    
+                  {{-- @forelse ($products as $key=>$product) --}}
+                  {{-- <tr> --}}
+                    {{-- <td><input type="checkbox" class="sub_chk" data-id="{{$product->id}}"></td> --}}
+{{--                     
                       <td class="text-center">
                           {{ $product->name }}
                       </td>
@@ -63,8 +61,8 @@
                       </td>
                       <td class="text-center">
                             25
-                      </td>
-                      <td class="text-center">
+                      </td> --}}
+                      {{-- <td class="text-center">
                         @if($product->status =='on-sale')
                             <span class="" style="background-color:#EF4444;color:white;">waiting for payment</span>         
                         @elseif($product->status == 'available')
@@ -80,29 +78,29 @@
                         @elseif($product->status == 'clearance')
                             <span class="" style="background-color:#EC4899;color:white;">clearance</span>         
                         @endif
-                      </td>
+                      </td> --}}
                       {{-- <td class="text-center" 
                           style="display: -webkit-box;max-width: 200px;max-height:300px;
                           -webkit-line-clamp: 4;-webkit-box-orient: vertical;
                           overflow: scroll;">
                           {{ $product->description }}
                       </td> --}}
-                      <td class="text-center">
-                          <form action="{{ route('products.destroy', $product) }}" method="POST" id="delete-form">
+                      {{-- <td class="text-center">
+                          <form action="{{ route('products.destroy', $product) }}" method="POST" id="delete-form"> --}}
                           {{-- <form data-confirm-delete="true" action="{{ route('products.destroy', $product->id) }}" method="POST"> --}}
-                              <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
+                              {{-- <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
                               <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                               <a data-url="{{ url('myproductsDeleteAll') }}" class="btn btn-sm delete_all" style="background-color: rgb(130, 0, 0);color:white;"><i class="fa fa-trash"></i></a>
-                              
+                               --}}
                               {{-- </form> --}}
-                          </form>
-                      </td>
-                  </tr>
-                  @empty
+                          {{-- </form>
+                      </td> --}}
+                  {{-- </tr> --}}
+                  {{-- @empty
                     <div class="alert alert-danger">
                      There is no data
                     </div>
-                  @endforelse
+                  @endforelse --}}
               </tfoot>
             </table>
         </div>
@@ -335,10 +333,63 @@
     height: 91vh;
 }
 </style>
+    {{-- Yajra DataTable --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+    {{-- End Yajra DataTable --}}
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')
+
+
+
+{{-- Yajra Data Table --}}
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script type="text/javascript">
+    var table;
+
+    $(function () {
+        table = $('.data-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('products.index') }}",
+            columns: [
+                { // Checkbox column
+                    data: 'checkbox',
+                    name: 'checkbox',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, full, meta) {
+                        return '<input type="checkbox" class="row-checkbox" value="' + full.id + '">';
+                    }
+                },
+                {data: 'name', name: 'name'},
+                {data: 'image', name: 'image'},
+                {data: 'price', name: 'price'},
+                {data: 'stock', name: 'stock'},
+                {data: 'status', name: 'status'},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
+        });
+    });
+
+</script>
+
+{{-- End Yajra Data Table --}}
 
 {{-- Multiple Delete --}}
 <script type="text/javascript">
@@ -445,11 +496,6 @@
     });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     //message with toastr
     @if(session()->has('success'))

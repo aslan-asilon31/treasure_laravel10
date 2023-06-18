@@ -17,11 +17,11 @@ class Order extends Model
     public $primaryKey = 'id';
 
     protected $fillable = [
-        'order_number',
-        'customer_name',
-        'order_date',
-        'shipping_address',
-        'order_status',
+        'number',
+        'total_price',
+        'payment_status',
+        'snap_token',
+        'slug',
     ];
 
     public function productpivots()

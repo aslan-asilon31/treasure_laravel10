@@ -2,6 +2,20 @@
 
 
 @push('css')
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/648c8c8ecc26a871b022fe6f/1h32ga41a';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+
 <style>
 .wishlist-product {
   background: transparent;
@@ -22,6 +36,12 @@
 @endpush
 
 @section('content')
+
+{{-- Live Chat Whatsapp --}}
+<a href="https://api.whatsapp.com/send?phone=082123070516" target="_blank">
+  <img src="{{ asset('frontend/img/whatsapp_logo.png') }}" alt="" style="width: 100px; position: fixed; z-index: 9999; bottom: 20px; left: 20px;" srcset="">
+</a>
+
 <div class="wrapper d-flex flex-column">
     <!-- Start Header -->
     <header class="header position-sticky">

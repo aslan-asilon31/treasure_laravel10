@@ -324,12 +324,6 @@ return [
 
         ],
         [
-            'text'        => 'Cart',
-            'url'         => 'carts',
-            'icon'        => 'far fa-fw fa-file',
-
-        ],
-        [
             'text'        => 'Category',
             'url'         => 'categories',
             'icon'        => 'fas fa-fw fa-boxes',
@@ -355,12 +349,6 @@ return [
 
         ],
         [
-            'text'        => 'Transaction Product',
-            'url'         => 'transactionproducts',
-            'icon'        => 'fas fa-fw fa-money-bill',
-
-        ],
-        [
             'text'        => 'Payment',
             'url'         => 'payments',
             'icon'        => 'fas fa-fw fa-money-bill',
@@ -370,6 +358,12 @@ return [
             'text'        => 'Report',
             'url'         => 'reports',
             'icon'        => 'fas fa-fw fa-money-bill',
+
+        ],
+        [
+            'text'        => 'Review',
+            'url'         => 'reviews',
+            'icon'        => 'fas fa-fw fa-users',
 
         ],
         ['header' => 'Settings'],

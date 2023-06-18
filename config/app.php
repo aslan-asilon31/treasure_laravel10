@@ -171,6 +171,7 @@ return [
         Darryldecode\Cart\CartServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -189,6 +190,7 @@ return [
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'FastExcel' => Rap2hpoutre\FastExcel\Facades\FastExcel::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ])->toArray(),
 
 ];

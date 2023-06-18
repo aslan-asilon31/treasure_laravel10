@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('user/export-csv', [UserController::class, 'export_csv'])->name('user.export-csv');
     Route::get('user/export-pdf', [UserController::class, 'export_pdf'])->name('user.export-pdf');
     Route::get('user/is-online', [UserController::class, 'is_online'])->name('user.is-online');
+    Route::get('user-search', [UserController::class, 'user_search'])->name('user.search');
 
 
 });    
@@ -71,7 +72,7 @@ Route::resource('categorydetails', CategoryDetailController::class);
 Route::resource('galleries', GalleryController::class);
 // Route::resource('orders', OrderController::class);
 
-// Route::resource('orders', OrderController::class)->only(['index', 'show']);
+Route::resource('orders', OrderController::class)->only(['index', 'show']);
 Route::post('orders/checkout',[OrderController::class, 'checkout'])->name('orders.checkout');
 // Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'checkout']);
 

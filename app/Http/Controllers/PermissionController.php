@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
+use Yajra\DataTables\Facades\Datatables;
 
 class PermissionController extends Controller
 {
@@ -20,9 +21,22 @@ class PermissionController extends Controller
 
     public function index(Request $request)
     {
-        $permissions = Permission::orderBy('id','DESC')->paginate(5);
-        return view('permissions.index',compact('permissions'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        if ($request->ajax()) {
+            $data = Permission::select('*');
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<a href="' . route('permissions.show', $row->id) . '" class="detail btn btn-info btn-sm" style="color:white;"> <i class="fa fa-eye"></i> </a>';
+                    $actionBtn .= '<a href="' . route('permissions.edit', $row->id) . '" class="edit btn btn-success btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $actionBtn .= '<a href="' . route('permissions.destroy', $row->id) . '" class="delete btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('permissions.index');
     }
 
     public function create()

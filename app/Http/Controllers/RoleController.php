@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
+use Yajra\DataTables\Facades\Datatables;
 
 class RoleController extends Controller
 {
@@ -18,11 +19,25 @@ class RoleController extends Controller
          $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
-    public function index(Request $request)
-    {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+    public function index(Request $request){
+        {
+            if ($request->ajax()) {
+                $data = Role::select('*');
+    
+                return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function ($row) {
+                        $actionBtn = '<a href="' . route('roles.show', $row->id) . '" class="detail btn btn-info btn-sm" style="color:white;"> <i class="fa fa-eye"></i> </a>';
+                        $actionBtn .= '<a href="' . route('roles.edit', $row->id) . '" class="edit btn btn-success btn-sm"> <i class="fa fa-edit"></i> </a>';
+                        $actionBtn .= '<a href="' . route('roles.destroy', $row->id) . '" class="delete btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>';
+                        return $actionBtn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+    
+            return view('roles.index');
+        }        
     }
 
     public function create()

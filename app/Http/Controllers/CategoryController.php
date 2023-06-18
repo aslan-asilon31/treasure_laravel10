@@ -6,13 +6,31 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use Storage;
 use App\Http\Requests\CategoryRequest;
+use Yajra\DataTables\Facades\Datatables;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
-        return view('category.index', compact('categories'));
+        if ($request->ajax()) {
+            $data = Category::select('*');
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('image', function($category) {
+                    return '<img src="'.Storage::url('public/categories/').$category->image.'" class="rounded" style="width: 50px">';
+                })
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<a href="' . route('categories.show', $row->id) . '" class="detail btn btn-info btn-sm" style="color:white;"> <i class="fa fa-eye"></i> </a>';
+                    $actionBtn .= '<a href="' . route('categories.edit', $row->id) . '" class="edit btn btn-success btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $actionBtn .= '<a href="' . route('categories.destroy', $row->id) . '" class="delete btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['image','action'])
+                ->make(true);
+        }
+
+        return view('category.index');
     }
     
     public function create()

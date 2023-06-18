@@ -14,6 +14,7 @@ use Alert;
 use App\Http\Requests\ProductRequest;
 use DB;
 use \Cart;
+use Yajra\DataTables\Facades\Datatables;
 
 class ProductController extends Controller
 {
@@ -25,23 +26,46 @@ class ProductController extends Controller
          $this->middleware('permission:product-delete', ['only' => ['destroy']]);
     }
 
-    public function index()
+    // public function index()
+    // {
+    //     $productdetails = ProductDetail::all();
+    //     $products = Product::all();
+    //     $users = User::all();
+    //     $cartItems = \Cart::getContent();
+    //     $productActivities = ActivityLog::all();
+    //     $title = 'Delete User!';
+    //     $text = "Are you sure you want to delete?";
+    //     confirmDelete($title, $text);
+    //     return view('product.index', compact(
+    //         'products',
+    //         'users',
+    //         'cartItems',
+    //         'productActivities',
+    //         'productdetails'
+    //     ));
+    // }
+
+    public function index(Request $request)
     {
-        $productdetails = ProductDetail::all();
-        $products = Product::all();
-        $users = User::all();
-        $cartItems = \Cart::getContent();
-        $productActivities = ActivityLog::all();
-        $title = 'Delete User!';
-        $text = "Are you sure you want to delete?";
-        confirmDelete($title, $text);
-        return view('product.index', compact(
-            'products',
-            'users',
-            'cartItems',
-            'productActivities',
-            'productdetails'
-        ));
+        if ($request->ajax()) {
+            $data = Product::select('*');
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('image', function($product) {
+                    return '<img src="'.Storage::url('public/products/').$product->image.'" class="rounded" style="width: 50px">';
+                })
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<a href="' . route('products.show', $row->id) . '" class="detail btn btn-info btn-sm" style="color:white;"> <i class="fa fa-eye"></i> </a>';
+                    $actionBtn .= '<a href="' . route('products.edit', $row->id) . '" class="edit btn btn-success btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $actionBtn .= '<a href="' . route('products.destroy', $row->id) . '" class="delete btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['image','action'])
+                ->make(true);
+        }
+
+        return view('product.index');
     }
 
     public function productList()

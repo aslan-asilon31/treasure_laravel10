@@ -45,3 +45,14 @@ Pengiriman gratis untuk semua pesanan.
 Layanan pelanggan prioritas.
 Akses ke penawaran khusus dan pre-sale.
 Hadiah atau bonus tambahan dengan pembelian tertentu.
+
+
+=================Live chat
+Live Chat using https://dashboard.tawk.to/?lang=en#/chat
+
+============= features 
+Tables Using YajraDatatable
+Live Chat using tawk
+Roles and Permissions using Spatie
+last seen user
+Export Import (Excel/PDF/CSV) using laravel excel

@@ -16,7 +16,7 @@ git remote set-url origin https://<token>@github.com/<username>/<repo>
 https://larainfo.com/blogs/laravel-9-shopping-add-to-cart-tutorial-example
 
 
-==== upload multple image
+==== upload multiple image
 
 https://larainfo.com/blogs/laravel-9-api-multiple-images-upload-using-laravel-medialibrary
 
@@ -68,6 +68,9 @@ laravel-excel.com
 
 ===========user last seen , is online
 https://www.itsolutionstuff.com/post/how-to-get-online-users-in-laravelexample.html
+
+================= tables using Yajra Datatables
+https://codeanddeploy.com/blog/laravel/step-by-step-tutorial-implementing-yajra-datatables-in-laravel-10
 
 
 

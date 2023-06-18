@@ -9,15 +9,37 @@ use App\Models\Payment;
 use \Cart;
 use App\Models\ProductDetail;
 use App\Models\MultiplePrice;
+use Yajra\DataTables\Facades\Datatables;
 
 class OrderController extends Controller
 {
-    public function index(){
-        return view('visitor.checkout');
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Order::select('*');
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<a href="' . route('orders.show', $row->id) . '" class="detail btn btn-info btn-sm" style="color:white;"> <i class="fa fa-eye"></i> </a>';
+                    $actionBtn .= '<a href="' . route('orders.edit', $row->id) . '" class="edit btn btn-success btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $actionBtn .= '<a href="' . route('orders.destroy', $row->id) . '" class="delete btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('order.index');
     }
+
+    public function create(){
+
+    }
+
     public function show(Order $order)
     {
-        dd($order);
+        // dd($order);
         $snapToken = $order->snap_token;
         if (empty($snapToken)) {
             // Jika snap token masih NULL, buat token snap dan simpan ke database
