@@ -84,11 +84,6 @@ body {
       <a href="{{ route('permissions.index') }}" class="btn btn-md bg-cyan mb-3">  <i class="fa fa-network-wired"></i> Permissions </a>
       <a href="{{ route('members.index') }}" class="btn btn-md bg-orange mb-3 " style="color:white;"> <span class="text-white"><i class="fa fa-users"></i> Members</span>  </a>
       <button class="btn btn-md bg-fuchsia mb-3 search-user-btn"  style="color:white;"> <span class="text-white"><i class="fa fa-search"></i> </span>  </button>
-
-      {{-- <div class="form-group">
-        <input type="text" class="form-controller" id="search" name="search" placeholder="Search">
-      </div> --}}
-
     </div>
     <!-- /.card-header -->
     <div class="card-body" style="color:black;">
@@ -103,97 +98,19 @@ body {
                 <th>Phone</th>
                 <th>Address</th>
                 <th>Status</th>
-                {{-- <th>Is active</th> --}}
                 <th>Last seen</th>
                 <th>Desc</th>
                 <th>Slug</th>
                 <th>Actions</th>
               </tr>
               </thead>
-              <tbody >
-                  {{-- @forelse ($users as $user)
-                  <tr>
-                      <td class="text-center">
-                          <img src="{{ Storage::url('public/users/').$user->image }}" class="rounded" style="width: 50px">
-                      </td>
-                      <td class="text-center">
-                          {{ $user->name }}
-                      </td>
-                      <td class="text-center">
-                        @if($user->role == 'superadmin')
-                        <p style="background-color: violet;border-radius:3px; color:white; font-weight:bold;">super admin</p>
-                        @elseif($user->role == 'admin')
-                        <p style="background-color: purple;border-radius:3px; color:white; font-weight:bold;">admin</p>
-                        @elseif($user->role == 'supervisor')
-                        <p style="background-color: rgb(122, 23, 81);border-radius:3px; color:white; font-weight:bold;">supervisor</p>
-                        @elseif($user->role == 'merchant')
-                        <p style="background-color: rgb(87, 27, 27);border-radius:3px; color:white; font-weight:bold;">merchant</p>
-                        @elseif($user->role == 'manager')
-                        <p style="background-color: rgb(21, 61, 73);border-radius:3px; color:white; font-weight:bold;">manager</p>
-                        @elseif($user->role == 'productmanager')
-                        <p style="background-color: rgb(128, 223, 40);border-radius:3px; color:white; font-weight:bold;">product manager</p>
-                        @elseif($user->role == 'marketingteam')
-                        <p style="background-color: rgb(201, 145, 23);border-radius:3px; color:white; font-weight:bold;">marketing team</p>
-                        @elseif($user->role == 'customerserviceteam')
-                        <p style="background-color: rgb(136, 25, 136);border-radius:3px; color:white; font-weight:bold;">customer service team</p>
-                        @elseif($user->role == 'dataanalyst')
-                        <p style="background-color: rgb(34, 152, 199);border-radius:3px; color:white; font-weight:bold;">data analyst</p>
-                        @else
-                            <p>none</p>
-                        @endif
-                      </td>
-                      <td class="text-center">
-                        @if($user->status == 'active')
-                        <p style="background-color: rgb(10, 216, 10);border-radius:3px; color:white; font-weight:bold;">Active</p>
-                        @elseif($user->status == 'inactive')
-                        <p style="background-color: red;border-radius:3px; color:white; font-weight:bold;">Inactive</p>
-                        @elseif($user->status == 'blocked')
-                        <p style="background-color: #000;border-radius:3px; color:white; font-weight:bold;">Blocked</p>
-                        @else
-                            <p>none</p>
-                        @endif
-                      </td>
-                      <td class="text-center">
-                        @if(Cache::has('user-is-online-' . $user->id))
-                          <div class="ring-container">
-                            <div class="ringring"></div>
-                            <div class="circle"></div>
-                          </div>
-                          @else
-                          <div class="ring-container">
-                            <div class="circle-offline"></div>
-                          </div>
-                        @endif
-                      </td>
-                      <td class="text-center">
-                        {{ Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
-                      </td>
-                    <td class="text-center">
-                        {{ $user->slug }}
-                    </td>
-                      <td class="text-center">
-                          <form data-confirm-delete="true" action="{{ route('users.destroy', $user->id) }}" method="POST">
-                              <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
-                              <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                              @csrf
-                              @method('DELETE')
-                              <button class="btn btn-sm btn-danger" onclick="deleteItem({{ $user->id }})"><i class="fa fa-trash"></i> </button>
-                          </form>
-                      </td>
-                  </tr>
-                  @empty
-                    <div class="alert alert-danger">
-                     There is no data
-                    </div>
-                  @endforelse --}}
-              </tfoot>
             </table>
             {{-- {{ $users->links() }} --}}
         </div>
     </div>
     <!-- /.card-body -->
-  </div>
-  <!-- /.card -->
+</div>
+<!-- /.card -->
 
 
   	

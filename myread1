@@ -51,8 +51,12 @@ Hadiah atau bonus tambahan dengan pembelian tertentu.
 Live Chat using https://dashboard.tawk.to/?lang=en#/chat
 
 ============= features 
-Tables Using YajraDatatable
-Live Chat using tawk
-Roles and Permissions using Spatie
-last seen user
-Export Import (Excel/PDF/CSV) using laravel excel
+- Roles and Permissions using Spatie
+- admin page using AdminLTE jeroenoten
+- Payment Gateway using Midtrans
+- Tables Using YajraDatatable
+- Live Chat using tawk
+- Roles and Permissions using Spatie
+- Export Import (Excel/PDF/CSV) using laravel excel
+- bulk delete
+- last seen user
