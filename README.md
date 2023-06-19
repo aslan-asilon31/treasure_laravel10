@@ -22,14 +22,14 @@
 <hr>
 
 <div class="" id="screenshoot">
-## 💠 Screnshoots (not all pages in the screenshot)
+## 💠 Screnshoots (not all pages in the screenshot) <br>
 ----------- Landing Page
 
 ![aradan_laravel10_bootstrap-add_logo](https://github.com/aslan-asilon31/aradan_laravel10_bootstrap/assets/116990574/7095d294-f7dd-4e37-b57f-d7b174a21f50)
 
 ![aradan_laravel10_bootstrap1](https://github.com/aslan-asilon31/aradan_laravel10_bootstrap/assets/116990574/d45c53d4-bbce-4335-9a54-6d2808668791)
 
----------------- Admin Page
+---------------- Admin Page <br>
 ![aradan_laravel10_bootstrap_admin_products](https://github.com/aslan-asilon31/aradan_laravel10_bootstrap/assets/116990574/14fa4c7e-0c4f-4e59-ae48-d1b47246bb40)
 
 ![aradan_laravel10_bootstrap_admin_users](https://github.com/aslan-asilon31/aradan_laravel10_bootstrap/assets/116990574/bab8365e-57f9-40ff-b56c-77ae8cfc4842)
@@ -42,16 +42,16 @@
 
 <div class="" id="feature">
 ## 💠 Features
-- Laravel 10 bootstrap 5
-- Roles and Permissions using Spatie
-- admin page using AdminLTE jeroenoten
-- Payment Gateway using Midtrans
-- Tables Using YajraDatatable
-- Live Chat using tawk
-- Roles and Permissions using Spatie
-- Export Import (Excel/PDF/CSV) using laravel excel
-- bulk delete
-- last seen user
+- Laravel 10 bootstrap 5<br>
+- Roles and Permissions using Spatie<br>
+- admin page using AdminLTE jeroenoten<br>
+- Payment Gateway using Midtrans<br>
+- Tables Using YajraDatatable<br>
+- Live Chat using tawk<br>
+- Roles and Permissions using Spatie<br>
+- Export Import (Excel/PDF/CSV) using laravel excel<br>
+- bulk delete<br>
+- last seen user<br>
 
 </div>
 
