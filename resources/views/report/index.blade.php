@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Review')
+@section('title', 'Report')
 
 @section('content_header')
     <h1>Report</h1>
@@ -21,13 +21,46 @@
         <table class="table table-bordered data-table">
             <thead>
                 <tr>
+                    <th>Account ID</th>
+                    <th>Account Type</th>
                     <th>Name</th>
-                    <th>Rating</th>
-                    <th>Comment</th>
+                    <th>Desc</th>
                     <th width="115px">Action</th>
                 </tr>
             </thead>
             <tbody>
+                @forelse ($accounts as $account)
+                <tr>
+                    <td style="width: 10px;">{{ $account->id }}</td>
+                    <td style="width: 30px;">
+                        @foreach ($account->account_type()->get() as $act)
+                        {{ $act->name }}
+                        @endforeach
+                    </td>
+                    <td style="width: 30px;">{!! $account->name !!} :
+                        @foreach ($account->account_details()->get() as $acd)
+                        <li>{{ $acd->name }}</li> 
+                        @endforeach
+                    </td>
+                    <td style="text-overflow: ellipsis;width: 200px;">{!! $account->desc !!}</td>
+   
+                    <td class="text-center">
+                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('accounts.destroy', $account->id) }}" method="POST">
+                            <a href="{{ route('accounts.edit', $account->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                        </form>
+                    </td>
+                </tr>
+              @empty
+                  <div class="alert alert-danger">
+                      Data Blog belum Tersedia.
+                  </div>
+              @endforelse
+            </tbody>
+          </table>  
+          {{ $accounts->links() }}
             </tbody>
         </table>
     </div>
@@ -60,14 +93,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     var table;
 
     $(function () {
         table = $('.data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('reviews.index') }}",
+            ajax: "{{ route('reports.index') }}",
             columns: [
                 {
                     data: 'name',
@@ -97,7 +130,7 @@
     function escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
-</script>
+</script> --}}
 
 
 @stop

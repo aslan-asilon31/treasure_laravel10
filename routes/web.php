@@ -27,7 +27,7 @@ use App\Http\Controllers\MultiplePriceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ActivityLogController;
-
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ Route::resource('transactionproducts', PaymentController::class);
 Route::resource('reports', ReportController::class);
 Route::resource('members', MemberController::class);
 
-// Route::resource('visitors', VisitorController::class);
+Route::resource('reports', ReportController::class);
 
 Route::resource('products', ProductController::class);
 Route::delete('myproductsDeleteAll', [ProductController::class, 'deleteAll']);
@@ -116,3 +116,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/checkout',[OrderController::class, 'checkout']);
 // Route::get('/invoice/{id}',[OrderController::class, 'invoice']);
 
+
+
+// accounting
+Route::resource('accounts', AccountController::class);
+// end accounting
