@@ -12,6 +12,13 @@ class AssetSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\AccountDetail::create([
+            'id'	=> '1',
+            'account_id'	=> '1',
+            'debit'	=> '0',
+            'credit'	=> '0',
+            'name'	=> 'Current Assets',
+            'desc'	=> 'atau Current Assets Harta lancar adalah harta yang dengan mudah dan cepat dikonversi menjadi uang, atau sering juga disebut likuiditas tinggi. Contoh akun yang termasuk harta lancar',
+        ]);
     }
 }

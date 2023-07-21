@@ -14,6 +14,7 @@ use Alert;
 use App\Http\Requests\ProductRequest;
 use DB;
 use \Cart;
+use Http;
 use Yajra\DataTables\Facades\Datatables;
 
 class ProductController extends Controller
@@ -45,27 +46,40 @@ class ProductController extends Controller
     //     ));
     // }
 
-    public function index(Request $request)
+    //using yajra data tables
+    // public function index(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $data = Product::select('*');
+
+    //         return Datatables::of($data)
+    //             ->addIndexColumn()
+    //             ->addColumn('image', function($product) {
+    //                 return '<img src="'.Storage::url('public/products/').$product->image.'" class="rounded" style="width: 50px">';
+    //             })
+    //             ->addColumn('action', function ($row) {
+    //                 $actionBtn = '<a href="' . route('products.show', $row->id) . '" class="detail btn btn-info btn-sm" style="color:white;"> <i class="fa fa-eye"></i> </a>';
+    //                 $actionBtn .= '<a href="' . route('products.edit', $row->id) . '" class="edit btn btn-success btn-sm"> <i class="fa fa-edit"></i> </a>';
+    //                 $actionBtn .= '<a href="' . route('products.destroy', $row->id) . '" class="delete btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>';
+    //                 return $actionBtn;
+    //             })
+    //             ->rawColumns(['image','action'])
+    //             ->make(true);
+    //     }
+
+    //     return view('product.index');
+    // }
+
+    public function index()
     {
-        if ($request->ajax()) {
-            $data = Product::select('*');
+        $response = Http::get('http://localhost:8000/api/product');
+        // $response = Http::get('https://jsonplaceholder.typicode.com/todos');
+        $products1 = json_decode($response->body());
+        $products = json_decode(json_encode($products1));
+        
+        // dd($product);
 
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('image', function($product) {
-                    return '<img src="'.Storage::url('public/products/').$product->image.'" class="rounded" style="width: 50px">';
-                })
-                ->addColumn('action', function ($row) {
-                    $actionBtn = '<a href="' . route('products.show', $row->id) . '" class="detail btn btn-info btn-sm" style="color:white;"> <i class="fa fa-eye"></i> </a>';
-                    $actionBtn .= '<a href="' . route('products.edit', $row->id) . '" class="edit btn btn-success btn-sm"> <i class="fa fa-edit"></i> </a>';
-                    $actionBtn .= '<a href="' . route('products.destroy', $row->id) . '" class="delete btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>';
-                    return $actionBtn;
-                })
-                ->rawColumns(['image','action'])
-                ->make(true);
-        }
-
-        return view('product.index');
+        return view('product.indexi', compact('products'));
     }
 
     public function productList()
@@ -74,10 +88,7 @@ class ProductController extends Controller
         $categories = Category::all();
         return view('visitor.landingpage', compact('products','categories'));
     }
-
-
-
-        
+      
     public function create()
     {
         return view('product.create');

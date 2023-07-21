@@ -6,6 +6,8 @@ use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\ProductImageController;
 
 
+use Illuminate\Support\Facades\Http;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,3 +28,8 @@ Route::resource('visitors', VisitorController::class);
 
 
 Route::resource('productimages', ProductImageController::class);
+
+
+// Route::get('/api/product', function () {
+
+// });

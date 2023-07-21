@@ -28,7 +28,6 @@ class Product extends Model
         'stock',
         'discount',
         'slug',
-        
     ];
 
     public function productpivots()
