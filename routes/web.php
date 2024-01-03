@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 
@@ -47,6 +48,10 @@ Route::get('/', [App\Http\Controllers\VisitorController::class, 'index'])->name(
 Route::get('search', [App\Http\Controllers\VisitorController::class, 'search'])->name('search');
 
 Auth::routes();
+
+
+Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

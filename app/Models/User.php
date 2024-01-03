@@ -42,6 +42,11 @@ class User extends Authenticatable
         return $this->hasMany(ProductPivot::class);
     }
 
+    public function socialAccounts()
+    {
+        return $this->hasMany(SocialAccount::class);
+    }
+    
     public function activitylogs()
     {
         return $this->hasMany(ActivityLog::class);
