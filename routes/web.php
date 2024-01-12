@@ -45,6 +45,7 @@ use App\Http\Controllers\AccountController;
 //     return view('visitor.landingpage');
 // });
 Route::get('/', [App\Http\Controllers\VisitorController::class, 'index'])->name('visitor');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 Route::get('search', [App\Http\Controllers\VisitorController::class, 'search'])->name('search');
 
 Auth::routes();
